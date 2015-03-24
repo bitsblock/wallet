@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="150dp"
+    android:minHeight="150dp"
+    android:background="@color/primary"
+    app:theme="@style/ToolbarTheme"
+    app:popupTheme="@style/PopupToolbarTheme"
+    android:padding="6dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_account"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/homer"
+                android:contentDescription="Image of account"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/image_account"
+                android:paddingLeft="20dp">
+                <TextView
+                    android:id="@+id/icon_bitcoins"
+                    android:text="@string/icon_bitcoin"
+                    android:contentDescription=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFF"
+                    android:textSize="30sp"/>
+
+                <TextView
+                    android:id="@+id/balance_bitcoins"
+                    android:text="0.00000001"
+                    android:textColor="#FFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+                <TextView
+                    android:id="@+id/balance_currency"
+                    android:text="4.0"
+                    android:textColor="#FFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"/>
+
+                <TextView
+                    android:id="@+id/icon_currency"
+                    android:text="@string/icon_euro"
+                    android:textColor="#FFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="26sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:context="com.liberic.bitcoinwallet.activity.MainActivity" >
+            <Button
+                style="?android:attr/buttonStyle"
+                android:id="@+id/action_send"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:text="@string/action_send"
+                android:textSize="17sp"
+                android:layout_margin="20dp"
+                android:onClick="openSendActivity"/>
+
+            <Button
+                style="?android:attr/buttonStyle"
+                android:id="@+id/action_receive"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:text="@string/action_receive"
+                android:textSize="17sp"
+                android:layout_margin="20dp"
+                android:onClick="openReceiveActivity"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.Toolbar>

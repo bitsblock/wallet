@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="icon">@color/icons</item>
+        <item name="divider">@color/divider</item>
+        <item name="android:buttonStyle">@style/ButtonToolbarTheme</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/toolbar_text_primary</item>
+        <item name="android:textColorSecondary">@color/toolbar_text_secondary</item>
+    </style>
+
+    <style name="PopupToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColor">@color/toolbar_text_primary</item>
+    </style>
+
+    <style name="ButtonToolbarTheme" parent="ButtonToolbarTheme.Base">
+    </style>
+
+    <style name="ButtonToolbarTheme.Base" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:minWidth">130dp</item>
+        <item name="android:minHeight">80dp</item>
+        <item name="android:background">@drawable/button_rounded</item>
+    </style>
+</resources>
