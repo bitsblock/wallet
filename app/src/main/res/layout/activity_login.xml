@@ -22,7 +22,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:textColor="@color/primary_light"
+        android:textColor="#FFF"
+        android:textColorHint="@color/primary_light"
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,13 +31,15 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="50dp"
-        android:hint="@string/username">
+        android:hint="@string/username"
+        android:singleLine="true">
 
         <requestFocus />
     </EditText>
 
     <EditText
-        android:textColor="@color/primary_light"
+        android:textColor="#FFF"
+        android:textColorHint="@color/primary_light"
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,15 +47,19 @@
         android:inputType="textPassword"
         android:layout_below="@+id/username"
         android:layout_centerHorizontal="true"
-        android:hint="@string/password" />
+        android:hint="@string/password"
+        android:singleLine="true"/>
 
     <CheckBox
+        android:textColor="#FFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save_credentials"
         android:id="@+id/save_credentials"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:buttonTint="@color/accent_material_dark"
+        android:checked="false" />
 
     <Button
         android:id="@+id/login"

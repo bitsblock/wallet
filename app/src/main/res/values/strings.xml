@@ -16,4 +16,5 @@
     <string name="password">Password</string>
     <string name="Login">Login</string>
     <string name="save_credentials">Save credentials</string>
+    <string name="title_activity_send_to_contact">SendToContactActivity</string>
 </resources>

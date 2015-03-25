@@ -8,10 +8,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.provider.ContactsContract.CommonDataKinds.Photo;
+import android.provider.ContactsContract.Contacts.Photo;
 import android.provider.ContactsContract.Data;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -20,19 +21,31 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.zxing.client.android.Intents;
 import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.adapter.ContactsAdapter;
 import com.liberic.bitcoinwallet.model.Contact;
+import com.liberic.bitcoinwallet.util.Constant;
+import com.liberic.bitcoinwallet.util.Interface;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SendActivity extends ActionBarActivity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
+    private static SendActivity mApp;
+
+    private static final String[] PHOTO_BITMAP_PROJECTION = new String[] { Photo.PHOTO };
+
+    public static Context getContext() {
+        return mApp.getApplicationContext();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +60,8 @@ public class SendActivity extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         listQueryContact("");
+
+        mApp = this;
     }
 
     @Override
@@ -108,22 +123,28 @@ public class SendActivity extends ActionBarActivity {
     }
 
     private void listQueryContact(String search){
-        List<Contact> data = new ArrayList<>();
+        final List<Contact> data = new ArrayList<>();
         Cursor mCursor = getContentResolver().query(
                 Data.CONTENT_URI,
-                new String[] { Data._ID, Data.DISPLAY_NAME, Phone.NUMBER, Phone.TYPE, Photo.PHOTO },
+                new String[] { Data._ID, Data.DISPLAY_NAME, Phone.NUMBER, Phone.TYPE, Phone.PHOTO_THUMBNAIL_URI },
                 Data.MIMETYPE + " = '" + Phone.CONTENT_ITEM_TYPE + "' AND " + Phone.NUMBER + " IS NOT NULL AND " + Data.DISPLAY_NAME + " LIKE '%" + search + "%'",
                 null, Data.DISPLAY_NAME + " ASC"
         );
 
         if(mCursor.moveToFirst()) {
             do{
-                data.add(new Contact(mCursor.getString(mCursor.getColumnIndex(Data.DISPLAY_NAME)),mCursor.getString(mCursor.getColumnIndex(Phone.NUMBER))));
+                data.add(new Contact(mCursor.getString(mCursor.getColumnIndex(Data.DISPLAY_NAME)), mCursor.getString(mCursor.getColumnIndex(Phone.NUMBER)), mCursor.getString(mCursor.getColumnIndex(Phone.PHOTO_THUMBNAIL_URI))));
             }while (mCursor.moveToNext());
         }
         mCursor.close();
-
-        mRecyclerView.swapAdapter(new ContactsAdapter(data), false);
+        ContactsAdapter dataAdapter = new ContactsAdapter(data);
+        dataAdapter.setClickListener(new Interface.ClickListener() {
+            @Override
+            public void itemClicked(View view, int position) {
+                sendToContact(view, data.get(position).getName(), data.get(position).getPhone());
+            }
+        });
+        mRecyclerView.swapAdapter(dataAdapter, false);
     }
 
     private void openQrCamera(){
@@ -154,7 +175,8 @@ public class SendActivity extends ActionBarActivity {
         });
         downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
-            }});
+            }
+        });
         return downloadDialog.show();
     }
 
@@ -167,5 +189,20 @@ public class SendActivity extends ActionBarActivity {
                 toast.show();
             }
         }
+    }
+
+    private void sendToContact(View v, String name, String phone) {
+        Intent intent = new Intent(this, SendToContactActivity.class);
+        CircleImageView imageContact = (CircleImageView) v.findViewById(R.id.image_contact);
+        imageContact.buildDrawingCache();
+        Bitmap image = imageContact.getDrawingCache();
+
+        Bundle extras = new Bundle();
+        extras.putString(Constant.NAME,name);
+        extras.putString(Constant.PHONE, phone);
+        extras.putParcelable(Constant.IMAGE, image);
+        intent.putExtras(extras);
+
+        startActivity(intent);
     }
 }

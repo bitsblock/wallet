@@ -10,6 +10,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Security {
+    //TODO Semila a partir del numero de telefono
     private static final String SEED = "This is my seed.";
     private final static String HEX = "0123456789ABCDEF";
     private final static byte[] key = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };

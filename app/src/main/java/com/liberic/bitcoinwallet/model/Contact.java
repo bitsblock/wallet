@@ -1,10 +1,10 @@
 package com.liberic.bitcoinwallet.model;
 
-/**
- * Created by josrom on 24/03/15.
- */
+
 public class Contact {
+    String uriImage;
     String name;
+    String phone;
 
     public String getPhone() {
         return phone;
@@ -22,11 +22,18 @@ public class Contact {
         this.name = name;
     }
 
-    String phone;
+    public String getUriImage() {
+        return uriImage;
+    }
 
-    public Contact(String name, String phone){
+    public void setUriImage(String uriImage) {
+        this.uriImage = uriImage;
+    }
+
+    public Contact(String name, String phone, String uriImage){
         this.name = name;
         this.phone = phone;
+        this.uriImage = uriImage;
     }
 
 }

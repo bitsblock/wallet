@@ -35,10 +35,12 @@ public class LoginActivity extends Activity {
             login = (Button) findViewById(R.id.login);
         } else {
             //Pantalla de carga contra el servidor
+            //setScreenLoginCorrect();
         }
     }
 
     public void login(View view) throws Exception {
+        //TODO Comprobar contra el servidor
         if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
             if(saveCredentials.isChecked()) {
                 SharedPreferences pref = getPreferences(MODE_PRIVATE);
