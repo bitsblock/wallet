@@ -1,36 +1,60 @@
 package com.liberic.bitcoinwallet.activity;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.liberic.bitcoinwallet.R;
+import com.liberic.bitcoinwallet.util.Constant;
+import com.liberic.bitcoinwallet.util.Security;
 
 public class LoginActivity extends Activity {
     private EditText username;
     private EditText password;
     private Button login;
+    private CheckBox saveCredentials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        if(!checkIfLogged()) {
+            setContentView(R.layout.activity_login);
 
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
+            username = (EditText) findViewById(R.id.username);
+            password = (EditText) findViewById(R.id.password);
 
-        login = (Button) findViewById(R.id.login);
+            saveCredentials = (CheckBox) findViewById(R.id.save_credentials);
+
+            login = (Button) findViewById(R.id.login);
+        } else {
+            //Pantalla de carga contra el servidor
+        }
     }
 
-    public void login(View view) {
+    public void login(View view) throws Exception {
         if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
-            Toast.makeText(getApplicationContext(), "Logged",Toast.LENGTH_SHORT).show();
+            if(saveCredentials.isChecked()) {
+                SharedPreferences pref = getPreferences(MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString(Constant.USER, username.getText().toString());
+                editor.putString(Constant.PASS, Security.encrypt(password.getText().toString()));
+                editor.apply();
+
+                Toast.makeText(getApplicationContext(), "Logged with save",Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(getApplicationContext(), "Logged witout save",Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
         }
@@ -43,18 +67,18 @@ public class LoginActivity extends Activity {
         return true;
     }
 
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+    private boolean checkIfLogged() {
+        SharedPreferences pref = getPreferences(MODE_PRIVATE);
+        //TODO Comprobar contra el servidor
+        if(pref.getString(Constant.USER, null) != null && pref.getString(Constant.PASS, null) != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             return true;
         }
+        return false;
+    }
 
-        return super.onOptionsItemSelected(item);
-    }*/
+
 }
