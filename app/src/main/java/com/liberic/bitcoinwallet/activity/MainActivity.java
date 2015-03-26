@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SendActivity.class));
+                startActivity(new Intent(getApplicationContext(), ReceiveActivity.class));
             }
         });
 
