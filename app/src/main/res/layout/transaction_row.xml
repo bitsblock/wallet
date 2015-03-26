@@ -13,6 +13,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/bender"
+        android:layout_marginRight="15dp"
         android:contentDescription="Image of account"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -33,8 +32,6 @@ import com.liberic.bitcoinwallet.util.Interface;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SendActivity extends ActionBarActivity {
     private RecyclerView mRecyclerView;
@@ -141,7 +138,7 @@ public class SendActivity extends ActionBarActivity {
         dataAdapter.setClickListener(new Interface.ClickListener() {
             @Override
             public void itemClicked(View view, int position) {
-                sendToContact(view, data.get(position).getName(), data.get(position).getPhone());
+                sendToContact(view, data.get(position).getName(), data.get(position).getPhone(),data.get(position).getUriImage());
             }
         });
         mRecyclerView.swapAdapter(dataAdapter, false);
@@ -191,16 +188,13 @@ public class SendActivity extends ActionBarActivity {
         }
     }
 
-    private void sendToContact(View v, String name, String phone) {
+    private void sendToContact(View v, String name, String phone, String uriPhoto) {
         Intent intent = new Intent(this, SendToContactActivity.class);
-        CircleImageView imageContact = (CircleImageView) v.findViewById(R.id.image_contact);
-        imageContact.buildDrawingCache();
-        Bitmap image = imageContact.getDrawingCache();
 
         Bundle extras = new Bundle();
         extras.putString(Constant.NAME,name);
         extras.putString(Constant.PHONE, phone);
-        extras.putParcelable(Constant.IMAGE, image);
+        extras.putString(Constant.IMAGE, uriPhoto);
         intent.putExtras(extras);
 
         startActivity(intent);

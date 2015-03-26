@@ -76,7 +76,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:layout_marginTop="30dp"
-        android:background="@color/accent"
+        android:background="#000000"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:background="@color/accent"
+        android:background="#000000"
         android:layout_below="@+id/linearLayout2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -127,19 +127,22 @@
             android:id="@+id/balance_currency"
             android:text="4.0"
             android:textColor="#FFF"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content"
             android:textSize="24sp" />
     </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         android:text="@string/action_send"
         android:id="@+id/button"
-        android:layout_alignTop="@+id/linearLayout2"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        android:shadowColor="@android:color/transparent"
+        android:layout_alignBottom="@+id/linearLayout2"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/linearLayout3" />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
