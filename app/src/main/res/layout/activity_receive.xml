@@ -4,74 +4,86 @@
     tools:context="com.liberic.bitcoinwallet.activity.ReceiveActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignParentTop="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_qr_code"
+            android:src="@android:drawable/ic_menu_upload_you_tube" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:background="#000000"
+        android:background="#ff00afcc"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout2">
+        android:id="@+id/linearLayout2"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/linearLayout3"
+        android:layout_toStartOf="@+id/linearLayout3">
 
         <TextView
             android:id="@+id/icon_bitcoins"
             android:text="@string/icon_bitcoin"
             android:contentDescription=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:textColor="#FFF"
-            android:textSize="30sp"
-            android:layout_marginRight="5dp"/>
+            android:textSize="22sp"
+            android:gravity="center"
+            android:layout_margin="8dp" />
 
         <EditText
+            android:singleLine="true"
+            android:scrollHorizontally="true"
             android:id="@+id/edit_bitcoins"
             android:text="0.00000001"
             android:textColor="#FFF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:inputType="numberDecimal" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:layout_marginRight="8dp" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:gravity="center_vertical"
-        android:background="#000000"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="20dp"
-        android:id="@+id/linearLayout3">
+        android:background="#ff000de6"
+        android:id="@+id/linearLayout3"
+        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content">
 
         <TextView
             android:id="@+id/icon_currency"
             android:text="@string/icon_euro"
+            android:contentDescription=""
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:textColor="#FFF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="26sp"
-            android:layout_marginRight="5dp" />
+            android:textSize="22sp"
+            android:gravity="center"
+            android:layout_margin="8dp" />
 
         <TextView
             android:id="@+id/balance_currency"
-            android:text="4.0"
+            android:text="40.0"
+            android:textSize="22sp"
+            android:gravity="center"
             android:textColor="#FFF"
-            android:layout_width="0dp"
-            android:layout_weight="0.8"
-            android:layout_height="wrap_content"
-            android:textSize="24sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp" />
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/image_qr_code"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

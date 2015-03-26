@@ -89,13 +89,20 @@ public class LoginActivity extends Activity {
     public static Context getContext() { return mApp.getApplicationContext(); }
 
     public static void logout(Activity act) {
-        SharedPreferences pref = act.getPreferences(MODE_PRIVATE);
+        SharedPreferences pref = mApp.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.remove(Constant.USER);
         editor.remove(Constant.PASS);
         editor.apply();
 
-        act.startActivity(new Intent(act.getApplicationContext(),LoginActivity.class));
+        Intent intent = new Intent(act.getApplicationContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        act.startActivity(intent);
         Toast.makeText(getContext(), act.getResources().getString(R.string.action_logout),Toast.LENGTH_SHORT).show();
+    }
+
+    public static SharedPreferences getPreferencesStatic(int mode) {
+        return mApp.getPreferences(mode);
     }
 }

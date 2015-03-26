@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts.Photo;
@@ -14,6 +15,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -161,8 +163,7 @@ public class SendActivity extends ActionBarActivity {
         if (result != null) {
             String contents=result.getContents();
             if (contents != null) {
-                Toast toast = Toast.makeText(this, result.toString(), Toast.LENGTH_LONG);
-                toast.show();
+                parseBitCoinToData(result);
             }
             else {
                 Toast toast = Toast.makeText(this, "Fail at read", Toast.LENGTH_LONG);
@@ -171,10 +172,51 @@ public class SendActivity extends ActionBarActivity {
         }
     }
 
+    private void parseBitCoinToData(IntentResult result) {
+        if (result.getFormatName().equals("QR_CODE")){
+            String decodeUri = Uri.decode(result.getContents());
+            String address = decodeUri.substring(decodeUri.indexOf("bitcoin:") + "bitcoin:".length(), decodeUri.indexOf("?"));
+            Log.d("QR", address);
+            String params = decodeUri.substring(decodeUri.indexOf("?"));
+            String[] paramsSplit = params.split("\\?");
+            Double amount = 0.0;
+            String label = null, message = null;
+            for(String param : paramsSplit) {
+                if(param.contains("amount=")){
+                    amount = Double.valueOf(param.substring(param.indexOf("=") + 1));
+                }
+                if(param.contains("label=")){
+                    label = param.substring(param.indexOf("=") + 1);
+                }
+                if(param.contains("message=")){
+                    message = param.substring(param.indexOf("=") + 1);
+                }
+                Log.d("QR", param);
+            }
+            sendToContact(address, amount, label, message);
+        }
+        Log.d("QR",Uri.decode(result.getContents()));
+    }
+
+    private void sendToContact(String address, Double amount, String label, String message) {
+        Intent intent = new Intent(this, SendToContactActivity.class);
+
+        Bundle extras = new Bundle();
+        extras.putString(Constant.MODE, "QR_MODE");
+        extras.putString(Constant.ADDRESS,address);
+        extras.putString(Constant.LABEL,label);
+        extras.putString(Constant.MESSAGE, message);
+        extras.putDouble(Constant.AMOUNT, amount);
+        intent.putExtras(extras);
+
+        startActivity(intent);
+    }
+
     private void sendToContact(Contact contact) {
         Intent intent = new Intent(this, SendToContactActivity.class);
 
         Bundle extras = new Bundle();
+        extras.putString(Constant.MODE,"CONTACT_MODE");
         extras.putString(Constant.NAME,contact.getName());
         extras.putString(Constant.PHONE, contact.getPhone());
         extras.putString(Constant.IMAGE, contact.getUriImage());

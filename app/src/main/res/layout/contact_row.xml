@@ -2,11 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="?attr/listPreferredItemHeight"
+    android:layout_height="72dp"
     android:gravity="center_vertical"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:background="@color/primary_light" >
+    android:background="@drawable/border" >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_contact"
@@ -14,18 +12,19 @@
         android:layout_height="48dp"
         android:src="@drawable/bender"
         android:contentDescription="@string/content_image_contact"
-        android:layout_marginRight="15dp"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:padding="8dp" />
 
     <TextView
         android:textColor="@color/primary_text"
         android:id="@+id/name_contact"
-        android:text="Dummy"
+        android:text="@string/dummy"
+        android:textSize="22sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
         android:layout_alignTop="@+id/image_contact"
         android:layout_toRightOf="@+id/image_contact"
         android:layout_toEndOf="@+id/image_contact" />
@@ -33,7 +32,7 @@
     <TextView
         android:textColor="@color/secondary_text"
         android:id="@+id/phone_contact"
-        android:text="987123654"
+        android:text="@string/phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/image_contact"

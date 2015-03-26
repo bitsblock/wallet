@@ -29,11 +29,11 @@ import java.util.regex.Pattern;
 public class ReceiveActivity extends ActionBarActivity {
     private ImageView qrCodeImage;
     private EditText bitcoinEditText;
-    //TODO The adress must be request from server
-    private String adress = "175tWpb8K1S7NmH4Zx6rewF9WQrcZv245W";
+    //TODO The address must be request from server
+    private String address = "175tWpb8K1S7NmH4Zx6rewF9WQrcZv245W";
     private String amount = "0.0";
-    private int width = 500;
-    private int heigth = 500;
+    private int width = 480;
+    private int height = 480;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +109,12 @@ public class ReceiveActivity extends ActionBarActivity {
     }
 
     private String parseDataToBitcoin(){
-        String uri = "bitcoin:" + adress + "?amount=" + amount;
-        String user = getPreferences(MODE_PRIVATE).getString(Constant.USER,null);
+        String uri = "bitcoin:" + address + "?amount=" + amount;
+        String user = LoginActivity.getPreferencesStatic(MODE_PRIVATE).getString(Constant.USER,null);
         if(user != null){
             uri += "?label=" + user;
+        } else {
+            Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
         }
 
         return uri;
@@ -122,11 +124,11 @@ public class ReceiveActivity extends ActionBarActivity {
         com.google.zxing.MultiFormatWriter writer = new MultiFormatWriter();
         String finalData = Uri.encode(data, "utf-8");
 
-        BitMatrix bm = writer.encode(finalData, BarcodeFormat.QR_CODE, width, heigth);
-        Bitmap imageBitmap = Bitmap.createBitmap(width,heigth, Bitmap.Config.ARGB_8888);
+        BitMatrix bm = writer.encode(finalData, BarcodeFormat.QR_CODE, width, height);
+        Bitmap imageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
         for(int i=0; i < width; i++){
-            for(int j=0;j < heigth;j++){
+            for(int j=0;j < height;j++){
                 imageBitmap.setPixel(i,j,bm.get(i,j) ? Color.BLACK: Color.WHITE);
             }
         }

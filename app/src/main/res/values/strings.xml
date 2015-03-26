@@ -5,6 +5,8 @@
     <string name="content_image_contact">Image of account</string>
     <string name="content_image_arrow_right">Arrow right</string>
     <string name="content_image_contact_to_send">Image of account to send</string>
+    <string name="dummy">Dummy</string>
+    <string name="phone">987123654</string>
 
     <!-- Symbols unicode -->
     <string name="icon_bitcoin">Ƀ</string>
@@ -37,4 +39,5 @@
 
     <!-- Receive activity -->
     <string name="title_activity_receive">Receive</string>
+
 </resources>
