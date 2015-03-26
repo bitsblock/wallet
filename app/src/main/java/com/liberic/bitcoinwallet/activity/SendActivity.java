@@ -1,14 +1,10 @@
 package com.liberic.bitcoinwallet.activity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.SearchManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts.Photo;
@@ -23,7 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.zxing.client.android.Intents;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.adapter.ContactsAdapter;
 import com.liberic.bitcoinwallet.model.Contact;
@@ -103,8 +100,11 @@ public class SendActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_qrcode) {
-            openQrCamera();
+        if (id == R.id.action_qr_code) {
+            if(isCameraAvailable())
+                openQrCamera();
+            else
+                Toast.makeText(this, "Rear Facing Camera Unavailable", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -123,7 +123,7 @@ public class SendActivity extends ActionBarActivity {
         final List<Contact> data = new ArrayList<>();
         Cursor mCursor = getContentResolver().query(
                 Data.CONTENT_URI,
-                new String[] { Data._ID, Data.DISPLAY_NAME, Phone.NUMBER, Phone.TYPE, Phone.PHOTO_THUMBNAIL_URI },
+                new String[]{Data._ID, Data.DISPLAY_NAME, Phone.NUMBER, Phone.TYPE, Phone.PHOTO_THUMBNAIL_URI},
                 Data.MIMETYPE + " = '" + Phone.CONTENT_ITEM_TYPE + "' AND " + Phone.NUMBER + " IS NOT NULL AND " + Data.DISPLAY_NAME + " LIKE '%" + search + "%'",
                 null, Data.DISPLAY_NAME + " ASC"
         );
@@ -138,63 +138,46 @@ public class SendActivity extends ActionBarActivity {
         dataAdapter.setClickListener(new Interface.ClickListener() {
             @Override
             public void itemClicked(View view, int position) {
-                sendToContact(view, data.get(position).getName(), data.get(position).getPhone(),data.get(position).getUriImage());
+                sendToContact(data.get(position));
             }
         });
         mRecyclerView.swapAdapter(dataAdapter, false);
     }
 
     private void openQrCamera(){
-        try {
-            Intent intent = new Intent(Intents.Scan.ACTION);
-            intent.putExtra("SCAN_MODE","QR_CODE_MODE");
-            startActivityForResult(intent, 0);
-        } catch (ActivityNotFoundException anfe) {
-            //on catch, show the download dialog
-            showDialog(SendActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
-        }
+        IntentIntegrator intent = new IntentIntegrator(this);
+        intent.initiateScan(IntentIntegrator.QR_CODE_TYPES);
+
     }
 
-    //alert dialog for downloadDialog
-    private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
-        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
-        downloadDialog.setTitle(title);
-        downloadDialog.setMessage(message);
-        downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Uri uri = Uri.parse("market://search?q=pname:" + "com.google.zxing.client.android");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                try {
-                    act.startActivity(intent);
-                } catch (ActivityNotFoundException anfe) {
-                }
-            }
-        });
-        downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        return downloadDialog.show();
+    public boolean isCameraAvailable() {
+        PackageManager pm = getPackageManager();
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                String contents = intent.getStringExtra("SCAN_RESULT");
-                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                Toast toast = Toast.makeText(this, "Content:" + contents + " Format:" + format, Toast.LENGTH_LONG);
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (result != null) {
+            String contents=result.getContents();
+            if (contents != null) {
+                Toast toast = Toast.makeText(this, result.toString(), Toast.LENGTH_LONG);
+                toast.show();
+            }
+            else {
+                Toast toast = Toast.makeText(this, "Fail at read", Toast.LENGTH_LONG);
                 toast.show();
             }
         }
     }
 
-    private void sendToContact(View v, String name, String phone, String uriPhoto) {
+    private void sendToContact(Contact contact) {
         Intent intent = new Intent(this, SendToContactActivity.class);
 
         Bundle extras = new Bundle();
-        extras.putString(Constant.NAME,name);
-        extras.putString(Constant.PHONE, phone);
-        extras.putString(Constant.IMAGE, uriPhoto);
+        extras.putString(Constant.NAME,contact.getName());
+        extras.putString(Constant.PHONE, contact.getPhone());
+        extras.putString(Constant.IMAGE, contact.getUriImage());
         intent.putExtras(extras);
 
         startActivity(intent);

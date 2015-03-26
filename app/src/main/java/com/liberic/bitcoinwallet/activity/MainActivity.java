@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         getSupportActionBar().setElevation(0.0F);
-        getSupportActionBar().setTitle("Wallet");
+        getSupportActionBar().setTitle("");
         //setSupportActionBar(toolbar);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_last_transactions);
@@ -88,7 +88,12 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "Hey you just hit " + item.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "TODO Activity settings is coming", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (id == R.id.action_logout) {
+            LoginActivity.logout(this);
             return true;
         }
 

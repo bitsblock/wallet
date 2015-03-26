@@ -67,7 +67,7 @@
         android:layout_centerHorizontal="true"
         android:layout_height="50dp"
         android:onClick="login"
-        android:text="@string/Login"
+        android:text="@string/login"
         android:layout_below="@+id/save_credentials"/>
 
 </RelativeLayout>

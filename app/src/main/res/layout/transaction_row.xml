@@ -14,7 +14,7 @@
         android:layout_height="48dp"
         android:src="@drawable/bender"
         android:layout_marginRight="15dp"
-        android:contentDescription="Image of account"
+        android:contentDescription="@string/content_image_contact"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

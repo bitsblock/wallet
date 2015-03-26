@@ -1,6 +1,7 @@
 package com.liberic.bitcoinwallet.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class LoginActivity extends Activity {
     private EditText password;
     private Button login;
     private CheckBox saveCredentials;
+    private static LoginActivity mApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class LoginActivity extends Activity {
             //Pantalla de carga contra el servidor
             //setScreenLoginCorrect();
         }
+
+        mApp = this;
     }
 
     public void login(View view) throws Exception {
@@ -49,16 +53,16 @@ public class LoginActivity extends Activity {
                 editor.putString(Constant.PASS, Security.encrypt(password.getText().toString()));
                 editor.apply();
 
-                Toast.makeText(getApplicationContext(), "Logged with save",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_with),Toast.LENGTH_SHORT).show();
             } else
-                Toast.makeText(getApplicationContext(), "Logged witout save",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_without),Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
-            Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -82,5 +86,16 @@ public class LoginActivity extends Activity {
         return false;
     }
 
+    public static Context getContext() { return mApp.getApplicationContext(); }
 
+    public static void logout(Activity act) {
+        SharedPreferences pref = act.getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.remove(Constant.USER);
+        editor.remove(Constant.PASS);
+        editor.apply();
+
+        act.startActivity(new Intent(act.getApplicationContext(),LoginActivity.class));
+        Toast.makeText(getContext(), act.getResources().getString(R.string.action_logout),Toast.LENGTH_SHORT).show();
+    }
 }

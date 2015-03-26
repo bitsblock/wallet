@@ -21,7 +21,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/bender"
-            android:contentDescription="Image of account" />
+            android:contentDescription="@string/content_image_contact" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +42,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        android:contentDescription="@string/content_image_arrow_right" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -59,7 +60,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/bender"
-            android:contentDescription="Image of account" />
+            android:contentDescription="@string/content_image_contact_to_send" />
 
         <TextView
             android:layout_width="wrap_content"

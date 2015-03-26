@@ -7,7 +7,6 @@
     app:theme="@style/AppTheme">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/app_bar"
         android:id="@+id/list_contacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

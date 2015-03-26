@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -18,6 +17,8 @@ import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.util.Constant;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,7 +39,7 @@ public class SendToContactActivity extends ActionBarActivity {
         nameOfContactToSend = (TextView) findViewById(R.id.name_contact_to_send);
         nameOfContactToSend.setText(extras.getString(Constant.NAME));
 
-        setTitle("Send to " + nameOfContactToSend);
+        setTitle("Send to " + nameOfContactToSend.getText());
 
         nameOfContact = (TextView) findViewById(R.id.name_contact);
         //nameOfContact.setText(extras.getString(Constant.NAME));
@@ -60,29 +61,20 @@ public class SendToContactActivity extends ActionBarActivity {
         bitcoinEditText.setFilters(new InputFilter[] {
                 new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
                     int beforeDecimal = 8, afterDecimal = 8;
+                    Pattern mPattern = Pattern.compile("[1-9]{1}[0-9]{0,7}(\\.[0-9]{0,7}[1-9]{1})?|(0\\.[0-9]{0,7}[1-9]{1})?");
 
                     @Override
-                    public CharSequence filter(CharSequence source, int start, int end, @NonNull Spanned dest, int dstart, int dend) {
-                        String temp = bitcoinEditText.getText() + source.toString();
-
-                        if (temp.equals(".")) {
-                            return "0.";
-                        } else if (temp.equals("0")) {
-                            //Don't allow beginning with a 0
-                            return "";
-                        } else if (!temp.contains(".")) {
-                            //No decimal point placed yet
-                            if(temp.length() > beforeDecimal) {
-                                return "";
-                            }
-                        } else {
-                            temp = temp.substring(temp.indexOf(".") + 1);
-                            if(temp.length() > afterDecimal) {
-                                return "";
-                            }
+                    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                        String formatedSource = source.subSequence(start, end).toString();
+                        String destPrefix = dest.subSequence(0, dstart).toString();
+                        String destSuffix = dest.subSequence(dend, dest.length()).toString();
+                        String result = destPrefix + formatedSource + destSuffix;
+                        result = result.replace(",", ".");
+                        Matcher matcher = mPattern.matcher(result);
+                        if (matcher.matches()) {
+                            return null;
                         }
-
-                        return super.filter(source,start,end,dest,dstart,dend);
+                        return "";
                     }
                 }
         });
