@@ -59,23 +59,23 @@ public class SendToContactActivity extends ActionBarActivity {
 
         bitcoinEditText = (EditText) findViewById(R.id.edit_bitcoins);
         bitcoinEditText.setFilters(new InputFilter[] {
-                new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
-                    Pattern mPattern = Pattern.compile("[1-9][0-9]{0,7}(\\.[0-9]{0,7}[1-9])?|(0\\.[0-9]{0,7}[1-9])?");
+            new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
+                Pattern mPattern = Pattern.compile("[1-9][0-9]{0,7}(\\.[0-9]{0,7}[1-9])?|(0\\.[0-9]{0,7}[1-9])?");
 
-                    @Override
-                    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                        String formattedSource = source.subSequence(start, end).toString();
-                        String destPrefix = dest.subSequence(0, dstart).toString();
-                        String destSuffix = dest.subSequence(dend, dest.length()).toString();
-                        String result = destPrefix + formattedSource + destSuffix;
-                        result = result.replace(",", ".");
-                        Matcher matcher = mPattern.matcher(result);
-                        if (matcher.matches()) {
-                            return null;
-                        }
-                        return "";
+                @Override
+                public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                    String formattedSource = source.subSequence(start, end).toString();
+                    String destPrefix = dest.subSequence(0, dstart).toString();
+                    String destSuffix = dest.subSequence(dend, dest.length()).toString();
+                    String result = destPrefix + formattedSource + destSuffix;
+                    result = result.replace(",", ".");
+                    Matcher matcher = mPattern.matcher(result);
+                    if (matcher.matches()) {
+                        return null;
                     }
+                    return "";
                 }
+            }
         });
     }
 

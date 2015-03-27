@@ -2,14 +2,15 @@ package com.liberic.bitcoinwallet.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.liberic.bitcoinwallet.R;
@@ -25,32 +26,33 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends ActionBarActivity {
-    private Toolbar toolbar;
+    private LinearLayout toolbar;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private LastTransactionsAdapter mAdapter;
+    private SwipeRefreshLayout mSwipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle(null);
-
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
         getSupportActionBar().setElevation(0.0F);
-        getSupportActionBar().setTitle("");
-        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_last_transactions);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(new LastTransactionsAdapter(getData()));
 
-        List<Transaction> data = new ArrayList<>();
-        data.add(new Transaction("Test","987123456", Mode.SEND, 0.0, new Date()));
-        data.add(new Transaction("Test","987176456", Mode.RECEIVE, 1.0, new Date()));
-        mAdapter = new LastTransactionsAdapter(data);
-        mRecyclerView.setAdapter(mAdapter);
+        mSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshTransactions);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mRecyclerView.swapAdapter(new LastTransactionsAdapter(getData()),false);
+                mSwipeRefresh.setRefreshing(false);
+            }
+        });
 
+        toolbar = (LinearLayout) findViewById(R.id.app_bar);
         Button btn = (Button) toolbar.findViewById(R.id.action_send);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +71,14 @@ public class MainActivity extends ActionBarActivity {
 
         CircleImageView imageAccount = (CircleImageView) toolbar.findViewById(R.id.image_account);
         imageAccount.setImageResource(R.drawable.homer);
+    }
+
+    private List<Transaction> getData() {
+        //TODO Connect to server
+        List<Transaction> data = new ArrayList<>();
+        data.add(new Transaction("Test","987123456", Mode.SEND, 0.0, new Date()));
+        data.add(new Transaction("Test", "987176456", Mode.RECEIVE, 1.0, new Date()));
+        return data;
     }
 
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts.Photo;
@@ -173,29 +172,26 @@ public class SendActivity extends ActionBarActivity {
     }
 
     private void parseBitCoinToData(IntentResult result) {
+        Log.d("QR",result.getContents());
         if (result.getFormatName().equals("QR_CODE")){
-            String decodeUri = Uri.decode(result.getContents());
+            String decodeUri = result.getContents();
             String address = decodeUri.substring(decodeUri.indexOf("bitcoin:") + "bitcoin:".length(), decodeUri.indexOf("?"));
-            Log.d("QR", address);
-            String params = decodeUri.substring(decodeUri.indexOf("?"));
-            String[] paramsSplit = params.split("\\?");
+            String[] paramsSplit = decodeUri.substring(decodeUri.indexOf("?")).split("&");
             Double amount = 0.0;
             String label = null, message = null;
             for(String param : paramsSplit) {
                 if(param.contains("amount=")){
                     amount = Double.valueOf(param.substring(param.indexOf("=") + 1));
-                }
-                if(param.contains("label=")){
+                } else if(param.contains("label=")){
                     label = param.substring(param.indexOf("=") + 1);
-                }
-                if(param.contains("message=")){
+                } else if(param.contains("message=")){
                     message = param.substring(param.indexOf("=") + 1);
+                } else {
+                    Log.d("UNKNOWN_PARAM", param);
                 }
-                Log.d("QR", param);
             }
             sendToContact(address, amount, label, message);
         }
-        Log.d("QR",Uri.decode(result.getContents()));
     }
 
     private void sendToContact(String address, Double amount, String label, String message) {
@@ -209,7 +205,7 @@ public class SendActivity extends ActionBarActivity {
         extras.putDouble(Constant.AMOUNT, amount);
         intent.putExtras(extras);
 
-        startActivity(intent);
+        //startActivity(intent);
     }
 
     private void sendToContact(Contact contact) {

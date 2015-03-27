@@ -19,7 +19,7 @@
         android:padding="8dp" />
 
     <TextView
-        android:textColor="@color/primary_text"
+        android:textColor="@color/primary_text_body"
         android:id="@+id/name_contact"
         android:text="@string/dummy"
         android:textSize="22sp"
@@ -30,7 +30,7 @@
         android:layout_toEndOf="@+id/image_contact" />
 
     <TextView
-        android:textColor="@color/secondary_text"
+        android:textColor="@color/secondary_text_body"
         android:id="@+id/phone_contact"
         android:text="@string/phone"
         android:layout_width="wrap_content"

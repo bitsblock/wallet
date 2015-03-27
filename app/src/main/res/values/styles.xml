@@ -12,6 +12,7 @@
         <item name="icon">@color/icons</item>
         <item name="divider">@color/divider</item>
         <item name="android:buttonStyle">@style/ButtonToolbarTheme</item>
+        <item name="android:actionBarWidgetTheme">@style/SearchViewTheme</item>
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -32,5 +33,10 @@
         <item name="android:minWidth">130dp</item>
         <item name="android:minHeight">80dp</item>
         <item name="android:background">@drawable/button_rounded</item>
+    </style>
+
+    <style name="SearchViewTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

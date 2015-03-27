@@ -6,10 +6,16 @@
 
     <include android:id="@+id/app_bar" layout="@layout/app_bar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_last_transactions"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshTransactions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/app_bar" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_last_transactions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

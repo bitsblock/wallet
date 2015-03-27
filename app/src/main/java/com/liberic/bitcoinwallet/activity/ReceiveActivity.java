@@ -1,10 +1,11 @@
 package com.liberic.bitcoinwallet.activity;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -30,7 +31,7 @@ public class ReceiveActivity extends ActionBarActivity {
     private ImageView qrCodeImage;
     private EditText bitcoinEditText;
     //TODO The address must be request from server
-    private String address = "175tWpb8K1S7NmH4Zx6rewF9WQrcZv245W";
+    private String address = "1Q7RTAuPcxhxKYxyKppNLzAtP9T1MfkUut";
     private String amount = "0.0";
     private int width = 480;
     private int height = 480;
@@ -64,9 +65,12 @@ public class ReceiveActivity extends ActionBarActivity {
 
         bitcoinEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -110,9 +114,15 @@ public class ReceiveActivity extends ActionBarActivity {
 
     private String parseDataToBitcoin(){
         String uri = "bitcoin:" + address + "?amount=" + amount;
-        String user = LoginActivity.getPreferencesStatic(MODE_PRIVATE).getString(Constant.USER,null);
+        String user = LoginActivity.getPreferencesStatic(MODE_PRIVATE).getString(Constant.USER, null);
+
         if(user != null){
-            uri += "?label=" + user;
+            uri += "&label=" + user;
+            TelephonyManager telemamanger = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            String getSimSerialNumber = telemamanger.getLine1Number();
+            if (getSimSerialNumber != null || getSimSerialNumber != "") {
+                uri += "+" + getSimSerialNumber;
+            }
         } else {
             Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
         }
@@ -122,9 +132,8 @@ public class ReceiveActivity extends ActionBarActivity {
 
     private void writeQrCode(String data) throws WriterException {
         com.google.zxing.MultiFormatWriter writer = new MultiFormatWriter();
-        String finalData = Uri.encode(data, "utf-8");
 
-        BitMatrix bm = writer.encode(finalData, BarcodeFormat.QR_CODE, width, height);
+        BitMatrix bm = writer.encode(data, BarcodeFormat.QR_CODE, width, height);
         Bitmap imageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
         for(int i=0; i < width; i++){
