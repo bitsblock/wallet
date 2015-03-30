@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.liberic.bitcoinwallet" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -16,8 +17,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,17 +31,17 @@
         </activity>
         <activity
             android:name=".activity.SendActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:label="@string/title_activity_send" >
+            android:label="@string/title_activity_send"
+            android:windowSoftInputMode="adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.SendToContactActivity"
+            android:name=".activity.SendToContactFromListActivity"
             android:label="@string/title_activity_send_to_contact"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".activity.SendActivity" >
+            android:parentActivityName=".activity.SendActivity"
+            android:windowSoftInputMode="adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.liberic.bitcoinwallet.activity.SendActivity" />
@@ -48,11 +49,16 @@
         <activity
             android:name=".activity.ReceiveActivity"
             android:label="@string/title_activity_receive"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName=".activity.MainActivity"
+            android:windowSoftInputMode="adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.liberic.bitcoinwallet.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

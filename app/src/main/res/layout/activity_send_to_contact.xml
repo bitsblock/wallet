@@ -3,7 +3,7 @@
     xmlns:app1="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.liberic.bitcoinwallet.activity.SendToContactActivity">
+    tools:context="com.liberic.bitcoinwallet.activity.SendToContactFromListActivity">
 
     <LinearLayout
         android:orientation="vertical"

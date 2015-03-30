@@ -195,7 +195,7 @@ public class SendActivity extends ActionBarActivity {
     }
 
     private void sendToContact(String address, Double amount, String label, String message) {
-        Intent intent = new Intent(this, SendToContactActivity.class);
+        Intent intent = new Intent(this, SendToContactFromListActivity.class);
 
         Bundle extras = new Bundle();
         extras.putString(Constant.MODE, "QR_MODE");
@@ -209,7 +209,7 @@ public class SendActivity extends ActionBarActivity {
     }
 
     private void sendToContact(Contact contact) {
-        Intent intent = new Intent(this, SendToContactActivity.class);
+        Intent intent = new Intent(this, SendToContactFromListActivity.class);
 
         Bundle extras = new Bundle();
         extras.putString(Constant.MODE,"CONTACT_MODE");

@@ -11,9 +11,11 @@
 
     <ProgressBar
         android:id="@+id/loading_spinner"
-        style="?android:progressBarStyleLarge"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@xml/progress"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />

@@ -23,6 +23,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.util.Constant;
+import com.liberic.bitcoinwallet.util.Globals;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -114,17 +115,17 @@ public class ReceiveActivity extends ActionBarActivity {
 
     private String parseDataToBitcoin(){
         String uri = "bitcoin:" + address + "?amount=" + amount;
-        String user = LoginActivity.getPreferencesStatic(MODE_PRIVATE).getString(Constant.USER, null);
+        String user = LoginActivity.getPreferencesStatic(Constant.PREF_GENERAL,MODE_PRIVATE).getString(Constant.USER, null);
+        if(user == null)
+            user = Globals.user;
 
-        if(user != null){
-            uri += "&label=" + user;
-            TelephonyManager telemamanger = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-            String getSimSerialNumber = telemamanger.getLine1Number();
-            if (getSimSerialNumber != null || getSimSerialNumber != "") {
-                uri += "+" + getSimSerialNumber;
-            }
+        uri += "&label=" + user;
+        TelephonyManager telemamanger = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String getSimSerialNumber = telemamanger.getLine1Number();
+        if (getSimSerialNumber != null || getSimSerialNumber != "") {
+            uri += "+" + getSimSerialNumber;
         } else {
-            Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
+            uri += "+" + Globals.phone;
         }
 
         return uri;

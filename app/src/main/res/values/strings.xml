@@ -39,5 +39,14 @@
 
     <!-- Receive activity -->
     <string name="title_activity_receive">Receive</string>
+    <string name="title_activity_settings">Settings</string>
 
+    <!-- Settings activity -->
+    <string name="pref_title_currency_of_list">Currency</string>
+    <string-array name="pref_currency_of_list_entries">
+        <item>Euro</item>
+    </string-array>
+    <string-array name="pref_currency_of_list_values">
+        <item>€</item>
+    </string-array>
 </resources>

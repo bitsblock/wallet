@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.util.Constant;
+import com.liberic.bitcoinwallet.util.Globals;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -22,7 +23,7 @@ import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SendToContactActivity extends ActionBarActivity {
+public class SendToContactFromListActivity extends ActionBarActivity {
 
     private TextView nameOfContactToSend;
     private CircleImageView imageOfContactToSend;
@@ -39,23 +40,30 @@ public class SendToContactActivity extends ActionBarActivity {
         nameOfContactToSend = (TextView) findViewById(R.id.name_contact_to_send);
         nameOfContactToSend.setText(extras.getString(Constant.NAME));
 
-        setTitle("Send to " + nameOfContactToSend.getText());
-
-        nameOfContact = (TextView) findViewById(R.id.name_contact);
-        //nameOfContact.setText(extras.getString(Constant.NAME));
-
-        imageOfContact = (CircleImageView) findViewById(R.id.image_contact);
-        //imageOfContact.setText(extras.getString(Constant.NAME));
-
         imageOfContactToSend = (CircleImageView) findViewById(R.id.image_contact_to_send);
         try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(SendActivity.getContext().getContentResolver(), Uri.parse(extras.getString(Constant.IMAGE)));
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(extras.getString(Constant.IMAGE)));
             imageOfContactToSend.setImageBitmap(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
             imageOfContactToSend.setImageResource(R.drawable.bender);
         }
+
+        setTitle("Send to " + nameOfContactToSend.getText());
+
+        nameOfContact = (TextView) findViewById(R.id.name_contact);
+        nameOfContact.setText(Globals.user);
+        imageOfContact = (CircleImageView) findViewById(R.id.image_contact);
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(Globals.uriPhoto));
+            imageOfContact.setImageBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            imageOfContact.setImageResource(R.drawable.homer);
+        }
+
 
         bitcoinEditText = (EditText) findViewById(R.id.edit_bitcoins);
         bitcoinEditText.setFilters(new InputFilter[] {

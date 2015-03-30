@@ -1,7 +1,10 @@
 package com.liberic.bitcoinwallet.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,13 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.adapter.LastTransactionsAdapter;
 import com.liberic.bitcoinwallet.model.Transaction;
-import com.liberic.bitcoinwallet.util.Mode;
+import com.liberic.bitcoinwallet.util.Constant;
+import com.liberic.bitcoinwallet.util.Globals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +40,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setElevation(0.0F);
-        //getSupportActionBar().setTitle("");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_last_transactions);
         mLayoutManager = new LinearLayoutManager(this);
@@ -70,14 +73,21 @@ public class MainActivity extends ActionBarActivity {
         });
 
         CircleImageView imageAccount = (CircleImageView) toolbar.findViewById(R.id.image_account);
-        imageAccount.setImageResource(R.drawable.homer);
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(Globals.uriPhoto));
+            imageAccount.setImageBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            imageAccount.setImageResource(R.drawable.homer);
+        }
     }
 
     private List<Transaction> getData() {
         //TODO Connect to server
         List<Transaction> data = new ArrayList<>();
-        data.add(new Transaction("Test","987123456", Mode.SEND, 0.0, new Date()));
-        data.add(new Transaction("Test", "987176456", Mode.RECEIVE, 1.0, new Date()));
+        data.add(new Transaction("Test","987123456", Constant.Mode.SEND, 0.0, new Date()));
+        data.add(new Transaction("Test", "987176456", Constant.Mode.RECEIVE, 1.0, new Date()));
         return data;
     }
 
@@ -98,7 +108,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "TODO Activity settings is coming", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 

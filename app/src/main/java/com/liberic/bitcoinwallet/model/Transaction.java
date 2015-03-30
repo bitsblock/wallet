@@ -1,17 +1,17 @@
 package com.liberic.bitcoinwallet.model;
 
-import com.liberic.bitcoinwallet.util.Mode;
+import com.liberic.bitcoinwallet.util.Constant;
 
 import java.util.Date;
 
 public class Transaction {
     String contact;
-    Mode mode;
+    Constant.Mode mode;
     String phone;
     double valueTransaction;
     Date date;
 
-    public Transaction(String contact, String phone, Mode mode, double value, Date date) {
+    public Transaction(String contact, String phone, Constant.Mode mode, double value, Date date) {
         this.contact = contact;
         this.phone = phone;
         this.mode = mode;
@@ -27,11 +27,11 @@ public class Transaction {
         this.contact = contact;
     }
 
-    public Mode getMode() {
+    public Constant.Mode getMode() {
         return mode;
     }
 
-    public void setMode(Mode mode) {
+    public void setMode(Constant.Mode mode) {
         this.mode = mode;
     }
 
