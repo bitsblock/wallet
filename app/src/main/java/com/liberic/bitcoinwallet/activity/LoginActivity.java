@@ -110,7 +110,7 @@ public class LoginActivity extends Activity {
     }
 
     private boolean checkIfCredentialsExists() {
-        SharedPreferences pref = getPreferences(MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences(Constant.PREF_GENERAL, MODE_PRIVATE);
         Globals.user = pref.getString(Constant.USER, null);
         Globals.pass = pref.getString(Constant.PASS, null);
         return Globals.user != null && Globals.pass != null;

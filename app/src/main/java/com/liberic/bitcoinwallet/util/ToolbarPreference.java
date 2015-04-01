@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.liberic.bitcoinwallet.R;
+import com.liberic.bitcoinwallet.activity.LoginActivity;
 
 public class ToolbarPreference extends Preference {
     public ToolbarPreference(Context context, AttributeSet attrs) {
@@ -20,11 +21,11 @@ public class ToolbarPreference extends Preference {
         parent.setPadding(0, 0, 0, 0);
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.activity_prefrences, parent, false);
+        View layout = inflater.inflate(R.layout.activity_preferences, parent, false);
 
         Toolbar toolbar = (Toolbar) layout.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        toolbar.setTitle(getTitle());
+        toolbar.setTitle(LoginActivity.getContext().getResources().getString(R.string.title_activity_settings));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
