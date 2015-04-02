@@ -4,6 +4,10 @@ import android.content.Context;
 import android.view.View;
 
 public class Interface {
+    public static void getRates(Context context, boolean activatePd) {
+        new AsyncConnector(context, Constant.URL_RATES, activatePd).execute();
+    }
+
     public interface ClickListener {
         void itemClicked(View view, int position);
     }

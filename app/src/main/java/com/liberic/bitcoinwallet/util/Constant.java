@@ -27,8 +27,21 @@ public class Constant {
     public static final String PASS_MYSQL = "root";
     public static final String USER_TABLE_MYSQL = "username";
     public static final String PASS_TABLE_MYSQL = "password";
+    public static final String URL_RATES = "https://blockchain.info/es/ticker";
 
     public enum Mode {
         SEND, RECEIVE
+    }
+
+    public enum Rates {
+        USD, JPY, CNY, SGD, HKD, CAD, NZD, AUD, CLP, GBP, DKK, SEK, ISK, CHF, BRL, EUR, RUB, PLN, THB, KRW, TWD
+    }
+
+    public class Ticket {
+        public static final String FIFTEEN = "15m";
+        public static final String LAST = "last";
+        public static final String BUY = "buy";
+        public static final String SELL = "sell";
+        public static final String SYMBOL = "symbol";
     }
 }

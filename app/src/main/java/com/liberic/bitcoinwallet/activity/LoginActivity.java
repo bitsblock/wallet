@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.util.Constant;
 import com.liberic.bitcoinwallet.util.Globals;
+import com.liberic.bitcoinwallet.util.Interface;
 import com.liberic.bitcoinwallet.util.Security;
 
 import java.sql.Connection;
@@ -172,6 +173,7 @@ public class LoginActivity extends Activity {
 
     private void goMainActivity() {
         SharedPreferences pref = getSharedPreferences(Constant.PREF_CURRENT_USER, MODE_PRIVATE);
+        Interface.getRates(this,true);
         loadDefaultPreferences(pref);
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -182,8 +184,8 @@ public class LoginActivity extends Activity {
     private void loadDefaultPreferences(SharedPreferences pref) {
         SharedPreferences.Editor editor = pref.edit();
         if (pref.getString(Constant.CURRENCY_TYPE,null) == null) {
-            editor.putString(Constant.CURRENCY_TYPE, "EUR");
-            editor.putFloat(Constant.CURRENCY_VALUE, (float) 224.29);
+            editor.putString(Constant.CURRENCY_TYPE, "");
+            editor.putFloat(Constant.CURRENCY_VALUE, 1.0f);
         }
 
         editor.apply();
