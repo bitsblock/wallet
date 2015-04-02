@@ -1,20 +1,19 @@
 package com.liberic.bitcoinwallet.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -24,9 +23,9 @@ import com.google.zxing.common.BitMatrix;
 import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.util.Constant;
 import com.liberic.bitcoinwallet.util.Globals;
+import com.liberic.bitcoinwallet.util.Interface;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.math.BigDecimal;
 
 public class ReceiveActivity extends ActionBarActivity {
     private ImageView qrCodeImage;
@@ -44,7 +43,10 @@ public class ReceiveActivity extends ActionBarActivity {
         qrCodeImage = (ImageView) findViewById(R.id.image_qr_code);
 
         bitcoinEditText = (EditText) findViewById(R.id.edit_bitcoins);
-        bitcoinEditText.setFilters(new InputFilter[] {
+        final EditText currencyEditText = (EditText) findViewById(R.id.edit_currency);
+        final Context ctx = this;
+
+        /*bitcoinEditText.setFilters(new InputFilter[] {
                 new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
                     Pattern mPattern = Pattern.compile("[1-9][0-9]{0,7}(\\.[0-9]{0,7}[1-9])?|(0\\.[0-9]{0,7}[1-9])?");
 
@@ -62,7 +64,7 @@ public class ReceiveActivity extends ActionBarActivity {
                         return "";
                     }
                 }
-        });
+        });*/
 
         bitcoinEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -75,6 +77,11 @@ public class ReceiveActivity extends ActionBarActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                Double conversion = Interface.convertToCurrencyFromBitcoin(ctx, Double.valueOf(bitcoinEditText.getText().toString()));
+                String conversionString = new BigDecimal(conversion).toPlainString();
+                if(!conversionString.equals(currencyEditText.getText().toString()))
+                    currencyEditText.setText(conversionString);
+
                 amount = bitcoinEditText.getText().toString();
                 try {
                     writeQrCode(parseDataToBitcoin());
@@ -83,6 +90,55 @@ public class ReceiveActivity extends ActionBarActivity {
                 }
             }
         });
+
+        /*currencyEditText.setFilters(new InputFilter[]{
+                new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
+                    Pattern mPattern = Pattern.compile("[1-9][0-9]*(\\.[0-9]?[1-9])?|(0\\.[0-9]?[1-9])?");
+
+                    @Override
+                    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                        String formattedSource = source.subSequence(start, end).toString();
+                        String destPrefix = dest.subSequence(0, dstart).toString();
+                        String destSuffix = dest.subSequence(dend, dest.length()).toString();
+                        String result = destPrefix + formattedSource + destSuffix;
+                        result = result.replace(",", ".");
+                        Matcher matcher = mPattern.matcher(result);
+                        if (matcher.matches()) {
+                            return null;
+                        }
+                        return "";
+                    }
+                }
+        });*/
+        currencyEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Double conversion = Interface.convertToBitcoinFromCurrency(ctx, Double.valueOf(currencyEditText.getText().toString()));
+                String conversionString = new BigDecimal(conversion).toPlainString();
+                if(!conversionString.equals(bitcoinEditText.getText().toString()))
+                    bitcoinEditText.setText(conversionString);
+
+                amount = bitcoinEditText.getText().toString();
+                try {
+                    writeQrCode(parseDataToBitcoin());
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        TextView mCurrencyType = (TextView) findViewById(R.id.icon_currency);
+        mCurrencyType.setText(getSharedPreferences(Constant.PREF_CURRENT_USER, MODE_PRIVATE).getString(Constant.CURRENCY_TYPE, null));
 
         try {
             writeQrCode(parseDataToBitcoin());
@@ -107,6 +163,9 @@ public class ReceiveActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+            startActivity(intent);
             return true;
         }
 
@@ -115,7 +174,7 @@ public class ReceiveActivity extends ActionBarActivity {
 
     private String parseDataToBitcoin(){
         String uri = "bitcoin:" + address + "?amount=" + amount;
-        String user = LoginActivity.getPreferencesStatic(Constant.PREF_GENERAL,MODE_PRIVATE).getString(Constant.USER, null);
+        String user = getSharedPreferences(Constant.PREF_GENERAL,MODE_PRIVATE).getString(Constant.USER, null);
         if(user == null)
             user = Globals.user;
 

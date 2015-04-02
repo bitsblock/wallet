@@ -99,7 +99,7 @@
             android:singleLine="true"
             android:scrollHorizontally="true"
             android:id="@+id/edit_bitcoins"
-            android:text="0.00000001"
+            android:text="0.0"
             android:textColor="#FFF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -122,23 +122,24 @@
 
         <TextView
             android:id="@+id/icon_currency"
-            android:text="@string/icon_euro"
+            android:text="@string/currency_type_default"
             android:contentDescription=""
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:textColor="#FFF"
-            android:textSize="22sp"
+            android:textSize="16sp"
             android:gravity="center"
             android:layout_margin="8dp" />
 
-        <TextView
-            android:id="@+id/balance_currency"
-            android:text="40.0"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:textColor="#FFF"
-            android:layout_width="wrap_content"
+        <EditText
+            android:imeOptions="flagNoExtractUi"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:id="@+id/edit_currency"
+            android:text="0.0"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:inputType="numberDecimal"
             android:layout_marginRight="8dp" />
     </LinearLayout>
 

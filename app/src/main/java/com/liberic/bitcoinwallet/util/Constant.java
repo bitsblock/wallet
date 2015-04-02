@@ -2,10 +2,14 @@ package com.liberic.bitcoinwallet.util;
 
 public class Constant {
     /************ PREFERENCES *********************/
-    public static final String PREF_GENERAL = "general";
+    public static final String PREF_GENERAL = "credentials_preferences";
+    public static final String PREF_CURRENT_USER = Globals.user +"_preferences";
 
     public static final String USER = "USERNAME";
     public static final String PASS = "PASSWORD";
+    public static final String CURRENCY_TYPE = "CURRENCY_TYPE";
+    public static final String CURRENCY_VALUE = "CURRENCY_VALUE";
+
     public static final String NAME = "nameOfContact";
     public static final String PHONE = "phoneOfContact";
     public static final String IMAGE = "imageOfContact";

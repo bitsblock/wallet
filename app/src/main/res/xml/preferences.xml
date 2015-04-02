@@ -1,16 +1,11 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="foobar"
-    android:title="@null">
-    <com.liberic.bitcoinwallet.util.ToolbarPreference
-        android:key="foobar"
-        android:title="@null" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="@string/user_preferences"
         android:key="pref_key_user_pref">
         <ListPreference
             android:key="currency_of_list"
             android:title="@string/pref_title_currency_of_list"
-            android:defaultValue="€"
+            android:defaultValue="224,29"
             android:entries="@array/pref_currency_of_list_entries"
             android:entryValues="@array/pref_currency_of_list_values"
             android:negativeButtonText="@null"

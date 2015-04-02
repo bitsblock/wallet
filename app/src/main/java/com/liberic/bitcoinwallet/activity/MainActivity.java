@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,12 +15,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.liberic.bitcoinwallet.R;
 import com.liberic.bitcoinwallet.adapter.LastTransactionsAdapter;
 import com.liberic.bitcoinwallet.model.Transaction;
 import com.liberic.bitcoinwallet.util.Constant;
 import com.liberic.bitcoinwallet.util.Globals;
+import com.liberic.bitcoinwallet.util.Interface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,9 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends ActionBarActivity {
-    private LinearLayout toolbar;
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefresh;
 
     @Override
@@ -42,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setElevation(0.0F);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_last_transactions);
-        mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(new LastTransactionsAdapter(getData()));
 
@@ -55,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        toolbar = (LinearLayout) findViewById(R.id.app_bar);
+        LinearLayout toolbar = (LinearLayout) findViewById(R.id.app_bar);
         Button btn = (Button) toolbar.findViewById(R.id.action_send);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +82,14 @@ public class MainActivity extends ActionBarActivity {
         } catch (NullPointerException e) {
             imageAccount.setImageResource(R.drawable.homer);
         }
+
+        TextView mBitcoinBalance = (TextView) findViewById(R.id.balance_bitcoins);
+
+        TextView mCurrencyType = (TextView) toolbar.findViewById(R.id.icon_currency);
+        mCurrencyType.setText(getSharedPreferences(Constant.PREF_CURRENT_USER,MODE_PRIVATE).getString(Constant.CURRENCY_TYPE,null));
+
+        TextView mCurrencyBalance = (TextView) toolbar.findViewById(R.id.balance_currency);
+        mCurrencyBalance.setText(Interface.convertToCurrencyFromBitcoin(this, Double.valueOf(mBitcoinBalance.getText().toString())).toString());
     }
 
     private List<Transaction> getData() {
@@ -106,9 +115,15 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+        }
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            Intent intent = new Intent(this, SettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+            startActivity(intent);
             return true;
         }
 

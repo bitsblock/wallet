@@ -171,13 +171,21 @@ public class LoginActivity extends Activity {
     }
 
     private void goMainActivity() {
+        SharedPreferences pref = getSharedPreferences(Constant.PREF_CURRENT_USER, MODE_PRIVATE);
+        loadDefaultPreferences(pref);
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    public static SharedPreferences getPreferencesStatic(String pref, int mode) {
-        return mApp.getSharedPreferences(pref, mode);
+    private void loadDefaultPreferences(SharedPreferences pref) {
+        SharedPreferences.Editor editor = pref.edit();
+        if (pref.getString(Constant.CURRENCY_TYPE,null) == null) {
+            editor.putString(Constant.CURRENCY_TYPE, "EUR");
+            editor.putFloat(Constant.CURRENCY_VALUE, (float) 224.29);
+        }
+
+        editor.apply();
     }
 }
