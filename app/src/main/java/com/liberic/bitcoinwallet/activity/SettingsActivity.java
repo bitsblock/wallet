@@ -1,5 +1,6 @@
 package com.liberic.bitcoinwallet.activity;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -39,6 +40,8 @@ public class SettingsActivity extends ActionBarActivity {
     }
 
     public static class GeneralPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
+        private Activity activity;
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -48,6 +51,7 @@ public class SettingsActivity extends ActionBarActivity {
             //lp.setEntries(Globals.entries);
             lp.setEntryValues(Globals.values);
             SharedPreferences preferences = getActivity().getSharedPreferences(Constant.PREF_CURRENT_USER,MODE_PRIVATE);
+            activity = getActivity();
             lp.setSummary(preferences.getString(Constant.CURRENCY_TYPE, null));
             lp.setValue(String.valueOf(preferences.getFloat(Constant.CURRENCY_VALUE, 0.0f)));
         }
@@ -63,7 +67,7 @@ public class SettingsActivity extends ActionBarActivity {
         }
 
         private void updatePreference(Preference p) {
-            SharedPreferences preferences = getActivity().getSharedPreferences(Constant.PREF_CURRENT_USER,MODE_PRIVATE);
+            SharedPreferences preferences = activity.getSharedPreferences(Constant.PREF_CURRENT_USER, MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             if (p.getKey().equals("currency_of_list")) {
                 ListPreference listPref = (ListPreference) p;

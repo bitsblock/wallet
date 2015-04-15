@@ -173,7 +173,7 @@ public class LoginActivity extends Activity {
 
     private void goMainActivity() {
         SharedPreferences pref = getSharedPreferences(Constant.PREF_CURRENT_USER, MODE_PRIVATE);
-        Interface.getRates(this,true);
+        Interface.getRates(this,false);
         loadDefaultPreferences(pref);
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
