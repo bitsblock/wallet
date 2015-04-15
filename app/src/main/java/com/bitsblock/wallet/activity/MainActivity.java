@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.activity;
+package com.bitsblock.wallet.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,12 +17,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.liberic.bitcoinwallet.R;
-import com.liberic.bitcoinwallet.adapter.LastTransactionsAdapter;
-import com.liberic.bitcoinwallet.model.Transaction;
-import com.liberic.bitcoinwallet.util.Constant;
-import com.liberic.bitcoinwallet.util.Globals;
-import com.liberic.bitcoinwallet.util.Interface;
+import com.bitsblock.wallet.R;
+import com.bitsblock.wallet.adapter.LastTransactionsAdapter;
+import com.bitsblock.wallet.model.Transaction;
+import com.bitsblock.wallet.util.Constant;
+import com.bitsblock.wallet.util.Globals;
+import com.bitsblock.wallet.util.Interface;
 
 import java.io.IOException;
 import java.util.ArrayList;

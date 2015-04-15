@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.util;
+package com.bitsblock.wallet.util;
 
 import android.util.Base64;
 
@@ -10,7 +10,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Security {
-    //TODO Semila a partir del numero de telefono
+    //TODO Seed from the number of phone
     private static final String SEED = "This is my seed.";
     private final static String HEX = "0123456789ABCDEF";
     private final static byte[] key = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };

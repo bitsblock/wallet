@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.model;
+package com.bitsblock.wallet.model;
 
 
 public class Contact {

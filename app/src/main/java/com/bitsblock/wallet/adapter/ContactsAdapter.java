@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.adapter;
+package com.bitsblock.wallet.adapter;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.liberic.bitcoinwallet.R;
-import com.liberic.bitcoinwallet.activity.SendActivity;
-import com.liberic.bitcoinwallet.model.Contact;
-import com.liberic.bitcoinwallet.util.Interface;
+import com.bitsblock.wallet.R;
+import com.bitsblock.wallet.activity.SendActivity;
+import com.bitsblock.wallet.model.Contact;
+import com.bitsblock.wallet.util.Interface;
 
 import java.io.IOException;
 import java.util.List;

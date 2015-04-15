@@ -1,6 +1,6 @@
-package com.liberic.bitcoinwallet.model;
+package com.bitsblock.wallet.model;
 
-import com.liberic.bitcoinwallet.util.Constant;
+import com.bitsblock.wallet.util.Constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;

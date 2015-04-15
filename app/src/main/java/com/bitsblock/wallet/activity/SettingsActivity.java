@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.activity;
+package com.bitsblock.wallet.activity;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -10,10 +10,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.liberic.bitcoinwallet.R;
-import com.liberic.bitcoinwallet.util.Constant;
-import com.liberic.bitcoinwallet.util.Globals;
-import com.liberic.bitcoinwallet.util.Interface;
+import com.bitsblock.wallet.R;
+import com.bitsblock.wallet.util.Constant;
+import com.bitsblock.wallet.util.Globals;
+import com.bitsblock.wallet.util.Interface;
 
 public class SettingsActivity extends ActionBarActivity {
     @Override

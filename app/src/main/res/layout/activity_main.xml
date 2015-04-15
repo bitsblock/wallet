@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.liberic.bitcoinwallet.activity.MainActivity">
+    tools:context="com.bitsblock.wallet.activity.MainActivity">
 
     <include android:id="@+id/app_bar" layout="@layout/app_bar" />
 

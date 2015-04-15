@@ -22,6 +22,11 @@
     <string name="login_without">Logged without save credentials</string>
     <string name="wrong_credentials">Wrong credentials</string>
 
+    <!-- Register activity -->
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="email">Email</string>
+    <string name="register">Register new account</string>
+
     <!-- Main activity -->
     <string name="title_activity_main">BitCoin Wallet</string>
     <string name="title_main">Wallet</string>
@@ -68,6 +73,5 @@
         <item>KRW</item>
         <item>TWD</item>
     </string-array>
-    <string-array name="pref_currency_of_list_values">
-    </string-array>
+    <string-array name="pref_currency_of_list_values" />
 </resources>

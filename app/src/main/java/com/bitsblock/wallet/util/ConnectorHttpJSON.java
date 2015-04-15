@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.util;
+package com.bitsblock.wallet.util;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.activity;
+package com.bitsblock.wallet.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,13 +11,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.liberic.bitcoinwallet.R;
-import com.liberic.bitcoinwallet.util.Constant;
-import com.liberic.bitcoinwallet.util.Globals;
-import com.liberic.bitcoinwallet.util.Interface;
-import com.liberic.bitcoinwallet.util.Security;
+import com.bitsblock.wallet.R;
+import com.bitsblock.wallet.util.Constant;
+import com.bitsblock.wallet.util.Globals;
+import com.bitsblock.wallet.util.Interface;
+import com.bitsblock.wallet.util.Security;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,6 +31,7 @@ public class LoginActivity extends Activity {
     private EditText password;
     private Button login;
     private ProgressBar spinner;
+    private TextView registerScreen;
     private CheckBox saveCredentials;
     private static LoginActivity mApp;
 
@@ -47,6 +49,14 @@ public class LoginActivity extends Activity {
             saveCredentials = (CheckBox) findViewById(R.id.save_credentials);
 
             login = (Button) findViewById(R.id.login);
+
+            registerScreen = (TextView) findViewById(R.id.link_register);
+            registerScreen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                }
+            });
         } else {
             setScreenLoginLoading();
             //TODO Delete '|| true'

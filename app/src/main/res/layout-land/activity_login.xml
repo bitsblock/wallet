@@ -74,5 +74,19 @@
             android:text="@string/login"
             android:layout_below="@+id/save_credentials"/>
 
+        <TextView
+            android:layout_below="@+id/login"
+            android:textColor="@color/primary_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="New to bitcoin wallet!\nRegister here"
+            android:id="@+id/link_register"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dip"
+            android:layout_marginBottom="40dip"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textIsSelectable="false" />
+
     </RelativeLayout>
 </LinearLayout>

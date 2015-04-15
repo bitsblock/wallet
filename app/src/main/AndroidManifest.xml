@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.liberic.bitcoinwallet" >
+    package="com.bitsblock.wallet" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.bitsblock.wallet.activity.LoginActivity"
             android:label="@string/title_activity_main"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
@@ -26,39 +26,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.bitsblock.wallet.activity.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name=".activity.SendActivity"
+            android:name="com.bitsblock.wallet.activity.SendActivity"
             android:label="@string/title_activity_send"
             android:windowSoftInputMode="adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value="com.bitsblock.wallet.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.SendToContactFromListActivity"
+            android:name="com.bitsblock.wallet.activity.SendToContactFromListActivity"
             android:label="@string/title_activity_send_to_contact"
-            android:parentActivityName=".activity.SendActivity"
+            android:parentActivityName="com.bitsblock.wallet.activity.SendActivity"
             android:windowSoftInputMode="adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.liberic.bitcoinwallet.activity.SendActivity" />
+                android:value="com.bitsblock.wallet.activity.SendActivity" />
         </activity>
         <activity
-            android:name=".activity.ReceiveActivity"
+            android:name="com.bitsblock.wallet.activity.ReceiveActivity"
             android:label="@string/title_activity_receive"
-            android:parentActivityName=".activity.MainActivity"
+            android:parentActivityName="com.bitsblock.wallet.activity.MainActivity"
             android:windowSoftInputMode="adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.liberic.bitcoinwallet.activity.MainActivity" />
+                android:value="com.bitsblock.wallet.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name="com.bitsblock.wallet.activity.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.Settings">
+            android:theme="@style/AppTheme.Settings" >
+        </activity>
+        <activity
+            android:name="com.bitsblock.wallet.activity.RegisterActivity"
+            android:label="@string/title_activity_register" >
         </activity>
     </application>
 

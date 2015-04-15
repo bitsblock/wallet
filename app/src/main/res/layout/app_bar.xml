@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="72dp"
             android:gravity="center"
-            tools:context="com.liberic.bitcoinwallet.activity.MainActivity" >
+            tools:context="com.bitsblock.wallet.activity.MainActivity" >
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="fill_parent"

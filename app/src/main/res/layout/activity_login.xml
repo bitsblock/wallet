@@ -1,64 +1,82 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary"
-    tools:context=".activity.LoginActivity" >
-
-    <include layout="@layout/header_login" />
-
-    <LinearLayout
-        android:id="@+id/layout_body"
-        android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/layout_title"
-        android:paddingTop="50dp"
-        android:paddingLeft="50dp"
-        android:paddingStart="50dp"
-        android:paddingRight="50dp"
-        android:paddingEnd="50dp">
-        <EditText
-            android:textColor="#FFF"
-            android:textColorHint="@color/primary_light"
-            android:id="@+id/username"
+        android:layout_height="match_parent"
+        android:background="@color/primary"
+        tools:context=".activity.LoginActivity" >
+
+        <include layout="@layout/header_login" />
+
+        <LinearLayout
+            android:id="@+id/layout_body"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/username"
-            android:singleLine="true">
+            android:layout_height="fill_parent"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/layout_title"
+            android:paddingTop="50dp"
+            android:paddingLeft="50dp"
+            android:paddingStart="50dp"
+            android:paddingRight="50dp"
+            android:paddingEnd="50dp">
+            <EditText
+                android:textColor="#FFF"
+                android:textColorHint="@color/primary_light"
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/username"
+                android:singleLine="true">
 
-            <requestFocus />
-        </EditText>
+                <requestFocus />
+            </EditText>
 
-        <EditText
-            android:textColor="#FFF"
-            android:textColorHint="@color/primary_light"
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:singleLine="true"/>
+            <EditText
+                android:textColor="#FFF"
+                android:textColorHint="@color/primary_light"
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                android:singleLine="true"/>
 
-        <CheckBox
-            android:layout_margin="20dp"
-            android:textColor="#FFF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save_credentials"
-            android:id="@+id/save_credentials"
-            android:buttonTint="@color/accent_material_dark"
-            android:checked="false" />
+            <CheckBox
+                android:layout_margin="20dp"
+                android:textColor="#FFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save_credentials"
+                android:id="@+id/save_credentials"
+                android:buttonTint="@color/accent_material_dark"
+                android:checked="false" />
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:onClick="login"
-            android:text="@string/login"/>
-    </LinearLayout>
+            <Button
+                android:id="@+id/login"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:onClick="login"
+                android:text="@string/login"/>
 
-</RelativeLayout>
+            <TextView
+                android:textColor="@color/primary_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="New to bitcoin wallet!\nRegister here"
+                android:id="@+id/link_register"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dip"
+                android:layout_marginBottom="40dip"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textIsSelectable="false" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

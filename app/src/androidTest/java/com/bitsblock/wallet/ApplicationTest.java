@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet;
+package com.bitsblock.wallet;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

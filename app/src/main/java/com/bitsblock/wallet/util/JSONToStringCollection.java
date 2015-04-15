@@ -1,7 +1,7 @@
-package com.liberic.bitcoinwallet.util;
+package com.bitsblock.wallet.util;
 
-import com.liberic.bitcoinwallet.model.ExchangesRates;
-import com.liberic.bitcoinwallet.model.Ticket;
+import com.bitsblock.wallet.model.ExchangesRates;
+import com.bitsblock.wallet.model.Ticket;
 
 import org.json.JSONException;
 import org.json.JSONObject;

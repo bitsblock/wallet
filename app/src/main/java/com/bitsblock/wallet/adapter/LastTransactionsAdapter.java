@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.adapter;
+package com.bitsblock.wallet.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.liberic.bitcoinwallet.R;
-import com.liberic.bitcoinwallet.model.Transaction;
+import com.bitsblock.wallet.R;
+import com.bitsblock.wallet.model.Transaction;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.liberic.bitcoinwallet.activity;
+package com.bitsblock.wallet.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -22,11 +22,11 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.liberic.bitcoinwallet.R;
-import com.liberic.bitcoinwallet.adapter.ContactsAdapter;
-import com.liberic.bitcoinwallet.model.Contact;
-import com.liberic.bitcoinwallet.util.Constant;
-import com.liberic.bitcoinwallet.util.Interface;
+import com.bitsblock.wallet.R;
+import com.bitsblock.wallet.adapter.ContactsAdapter;
+import com.bitsblock.wallet.model.Contact;
+import com.bitsblock.wallet.util.Constant;
+import com.bitsblock.wallet.util.Interface;
 
 import java.util.ArrayList;
 import java.util.List;
