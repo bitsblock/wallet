@@ -121,9 +121,13 @@ public class ReceiveActivity extends ActionBarActivity {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    Double conversion = Interface.convertToBitcoinFromCurrency(ctx, Double.valueOf(currencyText.getText().toString()));
-                    String conversionString = new BigDecimal(conversion).toPlainString();
-                    bitcoinText.setText(conversionString);
+                    try{
+                        Double conversion = Interface.convertToBitcoinFromCurrency(ctx, Double.valueOf(currencyText.getText().toString()));
+                        String conversionString = new BigDecimal(conversion).toPlainString();
+                        bitcoinText.setText(conversionString);
+                    } catch (NumberFormatException e) {
+                        bitcoinText.setText("0.0");
+                    }
                 }
             });
 
