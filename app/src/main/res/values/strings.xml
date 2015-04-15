@@ -7,6 +7,7 @@
     <string name="content_image_contact_to_send">Image of account to send</string>
     <string name="dummy">Dummy</string>
     <string name="phone">987123654</string>
+    <string name="zero">0.0</string>
 
     <!-- Symbols unicode -->
     <string name="icon_bitcoin">Ƀ</string>
@@ -38,6 +39,7 @@
     <!-- Send activity -->
     <string name="title_activity_send">SendActivity</string>
     <string name="action_qr_code">QR code</string>
+    <string name="action_search">Search</string>
 
     <!-- Send to contact activity -->
     <string name="title_activity_send_to_contact">SendToContactActivity</string>
@@ -45,6 +47,9 @@
     <!-- Receive activity -->
     <string name="title_activity_receive">Receive</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_dialog_note">Message to send</string>
+    <string name="accept_button">Accept</string>
+    <string name="cancel_button">Cancel</string>
 
     <!-- Settings activity -->
     <string name="pref_title_currency_of_list">Currency</string>
@@ -74,4 +79,12 @@
         <item>TWD</item>
     </string-array>
     <string-array name="pref_currency_of_list_values" />
+    <string-array name="pref_type_of_input_entries">
+        <item>Bitcoin</item>
+        <item>Currency</item>
+    </string-array>
+    <string-array name="pref_type_of_input_values">
+        <item>bitcoin</item>
+        <item>currency</item>
+    </string-array>
 </resources>

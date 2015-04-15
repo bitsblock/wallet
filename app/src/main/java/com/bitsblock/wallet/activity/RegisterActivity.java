@@ -108,9 +108,13 @@ public class RegisterActivity extends Activity {
 
     private void loadDefaultPreferences(SharedPreferences pref) {
         SharedPreferences.Editor editor = pref.edit();
-        if (pref.getString(Constant.CURRENCY_TYPE,null) == null) {
-            editor.putString(Constant.CURRENCY_TYPE, "");
-            editor.putFloat(Constant.CURRENCY_VALUE, 1.0f);
+        if (pref.getString(Constant.CURRENCY_TYPE,null) == null || "null".equals(pref.getString(Constant.CURRENCY_TYPE,null))) {
+            editor.putString(Constant.CURRENCY_TYPE, "EUR");
+            editor.putFloat(Constant.CURRENCY_VALUE, 208.8f);
+        }
+
+        if (pref.getString(Constant.TYPE_INPUT,null) == null || "null".equals(pref.getString(Constant.TYPE_INPUT,null))) {
+            editor.putString(Constant.TYPE_INPUT, "Bitcoin");
         }
 
         editor.apply();

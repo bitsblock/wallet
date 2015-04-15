@@ -48,12 +48,17 @@ public class SettingsActivity extends ActionBarActivity {
             addPreferencesFromResource(R.xml.preferences);
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
             ListPreference lp = (ListPreference) findPreference("currency_of_list");
-            //lp.setEntries(Globals.entries);
             lp.setEntryValues(Globals.values);
             SharedPreferences preferences = getActivity().getSharedPreferences(Constant.PREF_CURRENT_USER,MODE_PRIVATE);
             activity = getActivity();
             lp.setSummary(preferences.getString(Constant.CURRENCY_TYPE, null));
             lp.setValue(String.valueOf(preferences.getFloat(Constant.CURRENCY_VALUE, 0.0f)));
+            lp.setDefaultValue(preferences.getString(Constant.CURRENCY_TYPE, null));
+
+            ListPreference lp2 = (ListPreference) findPreference("type_of_input");
+            lp2.setSummary(preferences.getString(Constant.TYPE_INPUT,null));
+            lp2.setValue(preferences.getString(Constant.TYPE_INPUT, null));
+            lp2.setDefaultValue(preferences.getString(Constant.TYPE_INPUT, null));
         }
 
         @Override
@@ -69,12 +74,18 @@ public class SettingsActivity extends ActionBarActivity {
         private void updatePreference(Preference p) {
             SharedPreferences preferences = activity.getSharedPreferences(Constant.PREF_CURRENT_USER, MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            if (p.getKey().equals("currency_of_list")) {
+            if (p.getKey().equals("currency_of_list") && ((ListPreference)p).getEntry() != null) {
                 ListPreference listPref = (ListPreference) p;
                 p.setSummary(listPref.getEntry());
                 editor.putString(Constant.CURRENCY_TYPE, String.valueOf(listPref.getSummary()));
                 editor.putFloat(Constant.CURRENCY_VALUE, (float) Double.parseDouble(listPref.getValue()));
             }
+            if (p.getKey().equals("type_of_input") && ((ListPreference)p).getEntry() != null) {
+                ListPreference listPref = (ListPreference) p;
+                p.setSummary(listPref.getEntry());
+                editor.putString(Constant.TYPE_INPUT, String.valueOf(listPref.getSummary()));
+            }
+
             editor.apply();
         }
     }

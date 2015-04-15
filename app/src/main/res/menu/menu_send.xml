@@ -5,11 +5,11 @@
     <item android:id="@+id/action_qr_code"
         android:title="@string/action_qr_code"
         android:orderInCategory="200"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@drawable/ic_camera_alt_white"
         android:background="@android:color/transparent"
         app:showAsAction="always" />
     <item android:id="@+id/action_search"
-        android:title="Search"
+        android:title="@string/action_search"
         android:orderInCategory="100"
         android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
         android:background="@android:color/transparent"

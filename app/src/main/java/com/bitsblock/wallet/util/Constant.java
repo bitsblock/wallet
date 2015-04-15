@@ -9,6 +9,7 @@ public class Constant {
     public static final String PASS = "PASSWORD";
     public static final String CURRENCY_TYPE = "CURRENCY_TYPE";
     public static final String CURRENCY_VALUE = "CURRENCY_VALUE";
+    public static final String TYPE_INPUT = "TYPE_INPUT";
 
     public static final String NAME = "nameOfContact";
     public static final String PHONE = "phoneOfContact";

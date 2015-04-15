@@ -3,6 +3,7 @@ package com.bitsblock.wallet.util;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -40,6 +41,7 @@ public class AsyncConnector extends AsyncTask<Void, Void, Void> {
 		try {
 			JSONObject obj = connector.execute();
 			data = new JSONToStringCollection(obj);
+			Log.d("JSON", obj.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -10,5 +10,13 @@
             android:entryValues="@array/pref_currency_of_list_values"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null" />
+        <ListPreference
+            android:key="type_of_input"
+            android:title="Type of input"
+            android:defaultValue="bitcoin"
+            android:entries="@array/pref_type_of_input_entries"
+            android:entryValues="@array/pref_type_of_input_values"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
     </PreferenceCategory>
 </PreferenceScreen>
