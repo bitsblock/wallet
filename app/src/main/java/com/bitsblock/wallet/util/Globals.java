@@ -3,6 +3,7 @@ package com.bitsblock.wallet.util;
 
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class Globals {
     public static String user;
     public static String pass;

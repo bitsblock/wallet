@@ -69,7 +69,7 @@
                 android:textColor="@color/primary_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Alredy has account!\nLogin here"
+                android:text="Already has account!\nLogin here"
                 android:id="@+id/link_login"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="40dip"

@@ -62,11 +62,6 @@ public class SettingsActivity extends ActionBarActivity {
         }
 
         @Override
-        public void onResume() {
-            super.onResume();
-        }
-
-        @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             updatePreference(findPreference(key));
         }

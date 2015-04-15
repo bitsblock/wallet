@@ -15,7 +15,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
-public class ConnectorHttpJSON {
+@SuppressWarnings("unused")
+class ConnectorHttpJSON {
     private String url;
 
     public ConnectorHttpJSON(String url) {

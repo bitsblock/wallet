@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JSONToStringCollection {
+class JSONToStringCollection {
     private final ExchangesRates exchangesRates;
 
     public JSONToStringCollection(JSONObject obj) throws JSONException {

@@ -5,13 +5,14 @@ import com.bitsblock.wallet.util.Constant;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressWarnings("unused")
 public class Ticket {
     private double fifteenMinutes;
     private double last;
     private double buy;
     private double sell;
     private String symbol;
-    private String id;
+    private final String id;
 
     public Ticket(String id, JSONObject obj) throws JSONException {
         this.id = id;

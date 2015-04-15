@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -70,10 +71,10 @@ public class SendToContactFromListActivity extends ActionBarActivity {
             });
             bitcoinText.setFilters(new InputFilter[]{
                     new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
-                        Pattern mPattern = Pattern.compile("[0-9]{0,8}(\\.[0-9]{0,8})?|(0\\.[0-9]{0,8})?");
+                        final Pattern mPattern = Pattern.compile("[0-9]{0,8}(\\.[0-9]{0,8})?|(0\\.[0-9]{0,8})?");
 
                         @Override
-                        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                        public CharSequence filter(CharSequence source, int start, int end, @NonNull Spanned dest, int dstart, int dend) {
                             String formattedSource = source.subSequence(start, end).toString();
                             String destPrefix = dest.subSequence(0, dstart).toString();
                             String destSuffix = dest.subSequence(dend, dest.length()).toString();

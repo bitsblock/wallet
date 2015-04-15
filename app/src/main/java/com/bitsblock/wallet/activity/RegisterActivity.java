@@ -21,11 +21,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+@SuppressWarnings("unused")
 public class RegisterActivity extends Activity {
 
     private EditText username;
     private EditText password;
-    private EditText email;
     private Connection connection;
 
     @Override
@@ -36,7 +36,7 @@ public class RegisterActivity extends Activity {
         TextView loginScreen = (TextView) findViewById(R.id.link_login);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
-        email = (EditText) findViewById(R.id.email);
+        @SuppressWarnings("UnusedAssignment") EditText email = (EditText) findViewById(R.id.email);
 
         loginScreen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +46,13 @@ public class RegisterActivity extends Activity {
         });
     }
 
-    public void register(View view) throws Exception {
+    public void register(@SuppressWarnings("UnusedParameters") View view) throws Exception {
         Globals.user = username.getText().toString();
         Globals.pass = Security.encrypt(password.getText().toString());
         password.setText("");
 
         //TODO Delete '|| true'
+        //noinspection ConstantConditions,PointlessBooleanExpression
         if(!checkCredentials() || true) {
             Toast.makeText(getApplicationContext(), "Register complete", Toast.LENGTH_SHORT).show();
             goMainActivity();

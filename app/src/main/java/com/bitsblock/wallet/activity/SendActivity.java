@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.provider.ContactsContract.Contacts.Photo;
 import android.provider.ContactsContract.Data;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -20,23 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.bitsblock.wallet.R;
 import com.bitsblock.wallet.adapter.ContactsAdapter;
 import com.bitsblock.wallet.model.Contact;
 import com.bitsblock.wallet.util.Constant;
 import com.bitsblock.wallet.util.Interface;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SendActivity extends ActionBarActivity {
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private static SendActivity mApp;
-
-    private static final String[] PHOTO_BITMAP_PROJECTION = new String[] { Photo.PHOTO };
 
     public static Context getContext() {
         return mApp.getApplicationContext();
@@ -51,7 +47,7 @@ public class SendActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_contacts);
-        mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         listQueryContact("");
@@ -151,7 +147,7 @@ public class SendActivity extends ActionBarActivity {
 
     }
 
-    public boolean isCameraAvailable() {
+    private boolean isCameraAvailable() {
         PackageManager pm = getPackageManager();
         return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }

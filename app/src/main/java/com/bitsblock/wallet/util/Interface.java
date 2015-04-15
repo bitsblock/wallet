@@ -12,7 +12,7 @@ public class Interface {
     }
 
     public interface ClickListener {
-        void itemClicked(View view, int position);
+        void itemClicked(@SuppressWarnings("UnusedParameters") View view, int position);
     }
 
     public static Double convertToCurrencyFromBitcoin(Context ctx, Double bitcoin) {

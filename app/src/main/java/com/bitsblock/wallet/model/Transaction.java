@@ -4,15 +4,16 @@ import com.bitsblock.wallet.util.Constant;
 
 import java.util.Date;
 
+@SuppressWarnings("unused")
 public class Transaction {
-    String contact;
-    Constant.Mode mode;
-    String phone;
-    double valueTransaction;
-    Date date;
+    private String contact;
+    private Constant.Mode mode;
+    private String phone;
+    private double valueTransaction;
+    private Date date;
 
     public Transaction(String contact, String phone, Constant.Mode mode, double value, Date date) {
-        this.contact = contact;
+        this.contact = "Test";
         this.phone = phone;
         this.mode = mode;
         this.valueTransaction = value;

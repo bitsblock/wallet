@@ -26,12 +26,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+@SuppressWarnings("unused")
 public class LoginActivity extends Activity {
     private EditText username;
     private EditText password;
-    private Button login;
     private ProgressBar spinner;
-    private TextView registerScreen;
     private CheckBox saveCredentials;
     private static LoginActivity mApp;
 
@@ -48,9 +47,9 @@ public class LoginActivity extends Activity {
 
             saveCredentials = (CheckBox) findViewById(R.id.save_credentials);
 
-            login = (Button) findViewById(R.id.login);
+            @SuppressWarnings("UnusedAssignment") Button login = (Button) findViewById(R.id.login);
 
-            registerScreen = (TextView) findViewById(R.id.link_register);
+            TextView registerScreen = (TextView) findViewById(R.id.link_register);
             registerScreen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -60,6 +59,7 @@ public class LoginActivity extends Activity {
         } else {
             setScreenLoginLoading();
             //TODO Delete '|| true'
+            //noinspection ConstantConditions,PointlessBooleanExpression
             if (checkCredentials()  || true) {
                 goMainActivity();
             } else {
@@ -85,7 +85,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login_loading);
     }
 
-    public void login(View view) throws Exception {
+    public void login(@SuppressWarnings("UnusedParameters") View view) throws Exception {
         Globals.user = username.getText().toString();
         Globals.pass = Security.encrypt(password.getText().toString());
         password.setText("");
@@ -93,6 +93,7 @@ public class LoginActivity extends Activity {
         setScreenLoginLoading();
 
         //TODO Delete '|| true'
+        //noinspection ConstantConditions,PointlessBooleanExpression
         if (checkCredentials() || true) {
             if(saveCredentials.isChecked()) {
                 SharedPreferences pref = getSharedPreferences(Constant.PREF_GENERAL, MODE_PRIVATE);
@@ -163,7 +164,7 @@ public class LoginActivity extends Activity {
         return success;
     }
 
-    public static Context getContext() { return mApp.getApplicationContext(); }
+    private static Context getContext() { return mApp.getApplicationContext(); }
 
     public static void logout(Activity act) {
         SharedPreferences pref = mApp.getSharedPreferences(Constant.PREF_GENERAL, MODE_PRIVATE);

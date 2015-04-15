@@ -8,11 +8,11 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-public class AsyncConnector extends AsyncTask<Void, Void, Void> {
+class AsyncConnector extends AsyncTask<Void, Void, Void> {
 	private JSONToStringCollection data;
-	private String url;
+	private final String url;
 	private ProgressDialog pd = null;
-	private Context context;
+	private final Context context;
 
 	public AsyncConnector(Context context, String url, boolean pdOn) {
 		this.url = url;

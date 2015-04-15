@@ -17,7 +17,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LastTransactionsAdapter extends RecyclerView.Adapter<LastTransactionsAdapter.RowHolder> {
     private final SimpleDateFormat sdfDate;
-    private List<Transaction> data;
+    private final List<Transaction> data;
     public LastTransactionsAdapter(List<Transaction> data){
         this.data = data;
         sdfDate = new SimpleDateFormat("HH:mm:ss MM-dd-yyyy", Locale.ENGLISH);
@@ -26,8 +26,7 @@ public class LastTransactionsAdapter extends RecyclerView.Adapter<LastTransactio
     @Override
     public RowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_row, parent, false);
-        RowHolder rh = new RowHolder(v);
-        return rh;
+        return new RowHolder(v);
     }
 
     @Override
@@ -45,14 +44,15 @@ public class LastTransactionsAdapter extends RecyclerView.Adapter<LastTransactio
         return data.size();
     }
 
+    @SuppressWarnings("unused")
     public class RowHolder extends RecyclerView.ViewHolder {
-        CircleImageView imageContact;
-        TextView nameContact;
-        TextView phoneContact;
-        TextView modeTransaction;
-        TextView iconBitcoins;
-        TextView valueTransaction;
-        TextView dateTransaction;
+        final CircleImageView imageContact;
+        final TextView nameContact;
+        final TextView phoneContact;
+        final TextView modeTransaction;
+        final TextView iconBitcoins;
+        final TextView valueTransaction;
+        final TextView dateTransaction;
 
         public RowHolder(View itemView) {
             super(itemView);

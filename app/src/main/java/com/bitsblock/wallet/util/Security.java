@@ -9,10 +9,12 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+@SuppressWarnings("unused")
 public class Security {
     //TODO Seed from the number of phone
     private static final String SEED = "This is my seed.";
     private final static String HEX = "0123456789ABCDEF";
+    @SuppressWarnings("MismatchedReadAndWriteOfArray")
     private final static byte[] key = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 
@@ -20,8 +22,7 @@ public class Security {
         byte[] rawKey = Security.getRawKey(SEED.getBytes());
         byte[] result = Security.encrypt(rawKey, pass.getBytes());
         String fromHex = Security.toHex(result);
-        String base64 = new String(Base64.encodeToString(fromHex.getBytes(), 0));
-        return base64;
+        return Base64.encodeToString(fromHex.getBytes(), 0);
     }
 
     public static String decrypt(String encrypted) throws Exception {
@@ -36,7 +37,7 @@ public class Security {
 
     private static byte[] getRawKey(byte[] seed) throws Exception {
         KeyGenerator kgen = KeyGenerator.getInstance("AES"); // , "SC");
-        SecureRandom sr = null;
+        SecureRandom sr;
         if (android.os.Build.VERSION.SDK_INT >= 17) {
             sr = SecureRandom.getInstance("SHA1PRNG", "Crypto");
         } else {
@@ -47,33 +48,30 @@ public class Security {
             kgen.init(256, sr);
             // kgen.init(128, sr);
         } catch (Exception e) {
-            // Log.w(LOG, "This device doesn't suppor 256bits, trying 192bits.");
+            // Log.w(LOG, "This device doesn't support 256bits, trying 192bits.");
             try {
                 kgen.init(192, sr);
             } catch (Exception e1) {
-                // Log.w(LOG, "This device doesn't suppor 192bits, trying 128bits.");
+                // Log.w(LOG, "This device doesn't support 192bits, trying 128bits.");
                 kgen.init(128, sr);
             }
         }
         SecretKey skey = kgen.generateKey();
-        byte[] raw = skey.getEncoded();
-        return raw;
+        return skey.getEncoded();
     }
 
     private static byte[] encrypt(byte[] raw, byte[] clear) throws Exception {
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
         Cipher cipher = Cipher.getInstance("AES"); // /ECB/PKCS7Padding", "SC");
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        byte[] encrypted = cipher.doFinal(clear);
-        return encrypted;
+        return cipher.doFinal(clear);
     }
 
     private static byte[] decrypt(byte[] raw, byte[] encrypted) throws Exception {
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
         Cipher cipher = Cipher.getInstance("AES"); // /ECB/PKCS7Padding", "SC");
         cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-        byte[] decrypted = cipher.doFinal(encrypted);
-        return decrypted;
+        return cipher.doFinal(encrypted);
     }
 
     private static String fromHex(String hex) {
@@ -96,8 +94,8 @@ public class Security {
         if (buf == null)
             return "";
         StringBuffer result = new StringBuffer(2 * buf.length);
-        for (int i = 0; i < buf.length; i++) {
-            appendHex(result, buf[i]);
+        for (byte aBuf : buf) {
+            appendHex(result, aBuf);
         }
         return result.toString();
     }

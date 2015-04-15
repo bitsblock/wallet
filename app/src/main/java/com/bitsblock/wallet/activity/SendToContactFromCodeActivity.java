@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -28,10 +29,6 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SendToContactFromCodeActivity extends ActionBarActivity {
-    private String address;
-    private String message;
-    private String label;
-    private double amount;
 
     private SendToContactFromCodeActivity ctx;
     private TextView bitcoinText;
@@ -72,10 +69,10 @@ public class SendToContactFromCodeActivity extends ActionBarActivity {
             });
             bitcoinText.setFilters(new InputFilter[]{
                     new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
-                        Pattern mPattern = Pattern.compile("[0-9]{0,8}(\\.[0-9]{0,8})?|(0\\.[0-9]{0,8})?");
+                        final Pattern mPattern = Pattern.compile("[0-9]{0,8}(\\.[0-9]{0,8})?|(0\\.[0-9]{0,8})?");
 
                         @Override
-                        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                        public CharSequence filter(CharSequence source, int start, int end, @NonNull Spanned dest, int dstart, int dend) {
                             String formattedSource = source.subSequence(start, end).toString();
                             String destPrefix = dest.subSequence(0, dstart).toString();
                             String destSuffix = dest.subSequence(dend, dest.length()).toString();
@@ -123,14 +120,14 @@ public class SendToContactFromCodeActivity extends ActionBarActivity {
 
     private void loadViews() {
         Bundle extras = getIntent().getExtras();
-        address = extras.getString(Constant.ADDRESS);
-        label = extras.getString(Constant.LABEL);
-        message = extras.getString(Constant.MESSAGE);
+        String address = extras.getString(Constant.ADDRESS);
+        String label = extras.getString(Constant.LABEL);
+        String message = extras.getString(Constant.MESSAGE);
         ((TextView)findViewById(R.id.message)).setText(message + "\n" + address);
-        amount = extras.getDouble(Constant.AMOUNT);
+        double amount = extras.getDouble(Constant.AMOUNT);
 
         TextView nameOfContactToSend = (TextView) findViewById(R.id.name_contact_to_send);
-        nameOfContactToSend.setText(label.replace('+','\n'));
+        nameOfContactToSend.setText(label.replace('+', '\n'));
 
         CircleImageView imageOfContactToSend = (CircleImageView) findViewById(R.id.image_contact_to_send);
         imageOfContactToSend.setImageResource(R.drawable.bender);

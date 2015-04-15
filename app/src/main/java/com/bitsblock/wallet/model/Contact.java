@@ -1,10 +1,11 @@
 package com.bitsblock.wallet.model;
 
 
+@SuppressWarnings("unused")
 public class Contact {
-    String uriImage;
-    String name;
-    String phone;
+    private String uriImage;
+    private String name;
+    private String phone;
 
     public String getPhone() {
         return phone;

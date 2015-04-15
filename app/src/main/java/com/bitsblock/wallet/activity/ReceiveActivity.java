@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
@@ -36,11 +37,7 @@ import java.util.regex.Pattern;
 
 public class ReceiveActivity extends ActionBarActivity {
     private ImageView qrCodeImage;
-    //TODO The address must be request from server
-    private String address = "1Q7RTAuPcxhxKYxyKppNLzAtP9T1MfkUut";
     private String amount = "0.0";
-    private int width = 480;
-    private int height = 480;
     private String msg = null;
     private ReceiveActivity ctx;
     private TextView bitcoinText;
@@ -86,10 +83,10 @@ public class ReceiveActivity extends ActionBarActivity {
             });
             bitcoinText.setFilters(new InputFilter[]{
                     new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
-                        Pattern mPattern = Pattern.compile("[0-9]{0,8}(\\.[0-9]{0,8})?|(0\\.[0-9]{0,8})?");
+                        final Pattern mPattern = Pattern.compile("[0-9]{0,8}(\\.[0-9]{0,8})?|(0\\.[0-9]{0,8})?");
 
                         @Override
-                        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                        public CharSequence filter(CharSequence source, int start, int end, @NonNull Spanned dest, int dstart, int dend) {
                             String formattedSource = source.subSequence(start, end).toString();
                             String destPrefix = dest.subSequence(0, dstart).toString();
                             String destSuffix = dest.subSequence(dend, dest.length()).toString();
@@ -194,14 +191,15 @@ public class ReceiveActivity extends ActionBarActivity {
     }
 
     private String parseDataToBitcoin(){
+        String address = "1Q7RTAuPcxhxKYxyKppNLzAtP9T1MfkUut";
         String uri = "bitcoin:" + address + "?amount=" + amount;
         String user = getSharedPreferences(Constant.PREF_GENERAL,MODE_PRIVATE).getString(Constant.USER, null);
         if(user == null)
             user = Globals.user;
 
         uri += "&label=" + user;
-        TelephonyManager telemamanger = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        String getSimSerialNumber = telemamanger.getLine1Number();
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String getSimSerialNumber = telephonyManager.getLine1Number();
         if (getSimSerialNumber != null && !getSimSerialNumber.equals("")) {
             uri += "+" + getSimSerialNumber;
         } else {
@@ -218,6 +216,8 @@ public class ReceiveActivity extends ActionBarActivity {
     private void writeQrCode(String data) throws WriterException {
         com.google.zxing.MultiFormatWriter writer = new MultiFormatWriter();
 
+        int width = 480;
+        int height = 480;
         BitMatrix bm = writer.encode(data, BarcodeFormat.QR_CODE, width, height);
         Bitmap imageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 

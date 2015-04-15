@@ -19,6 +19,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("unused")
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.RowHolder> {
     private final List<Contact> data;
     private Interface.ClickListener clickListener;
@@ -30,8 +31,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.RowHol
     @Override
     public RowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_row, parent, false);
-        RowHolder rh = new RowHolder(v);
-        return rh;
+        return new RowHolder(v);
     }
 
     @Override
@@ -62,9 +62,9 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.RowHol
     }
 
     public class RowHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        CircleImageView imageContact;
-        TextView nameContact;
-        TextView phoneContact;
+        final CircleImageView imageContact;
+        final TextView nameContact;
+        final TextView phoneContact;
 
         public RowHolder(View itemView) {
             super(itemView);
@@ -77,6 +77,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.RowHol
         @Override
         public void onClick(View v) {
             if (clickListener != null) {
+                //noinspection deprecation
                 clickListener.itemClicked(v, getPosition());
             }
         }

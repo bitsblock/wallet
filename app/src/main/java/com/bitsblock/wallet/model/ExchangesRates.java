@@ -30,7 +30,7 @@ public class ExchangesRates {
     private Ticket THB;
     private Ticket KRW;
     private Ticket TWD;
-    private List<Ticket> list = new ArrayList<>();
+    private final List<Ticket> list = new ArrayList<>();
 
     public ExchangesRates(JSONObject obj) throws JSONException {
         this.USD = new Ticket(Constant.Rates.USD.toString(), obj.getJSONObject(Constant.Rates.USD.toString()));
