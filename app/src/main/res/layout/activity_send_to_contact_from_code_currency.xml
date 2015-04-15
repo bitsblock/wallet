@@ -1,33 +1,72 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bitsblock.wallet.activity.ReceiveActivity">
+    tools:context="com.bitsblock.wallet.activity.SendToContactFromCodeActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="20dp"
         android:gravity="center"
-        android:layout_above="@+id/linearLayoutBitcoin"
-        android:layout_alignParentTop="true">
+        android:id="@+id/linearLayout">
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayoutMyAccount">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_contact"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app1:border_width="2dp"
+                app1:border_color="@color/primary_light"
+                android:src="@drawable/bender"
+                android:contentDescription="@string/content_image_contact" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jose Vicente"
+                android:id="@+id/name_contact"/>
+        </LinearLayout>
 
         <ImageView
-            android:layout_width="480px"
-            android:layout_height="480px"
-            android:id="@+id/image_qr_code"
-            android:src="@drawable/ic_photo_black"
-            android:contentDescription="@null" />
-    </LinearLayout>
+            android:src="@drawable/ic_arrow_right"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="fitEnd"
+            android:id="@+id/imageViewArrow"
+            android:contentDescription="@string/content_image_arrow_right" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/msg"
-        android:text="prueba"
-        android:textSize="16sp"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@+id/button_accept"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:id="@+id/linearLayoutAccount">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_contact_to_send"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app1:border_width="2dp"
+                app1:border_color="@color/primary_light"
+                android:src="@drawable/bender"
+                android:contentDescription="@string/content_image_contact_to_send" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sr. X"
+                android:id="@+id/name_contact_to_send"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -37,7 +76,7 @@
         android:layout_alignParentLeft="true"
         android:id="@+id/linearLayoutBitcoin"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/button_accept">
+        android:layout_toLeftOf="@+id/button">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -106,21 +145,24 @@
         <include android:id="@+id/note" layout="@layout/layout_note" />
     </LinearLayout>
 
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:text="@string/action_send"
+        android:id="@+id/button"
+        android:background="#ffffffff"
+        android:elevation="0dp"
+        android:shadowColor="#ff00afcc"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/linearLayoutBitcoin" />
 
-    <Button
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:text="@string/accept_button"
-        android:id="@+id/button_accept"
-        android:layout_alignTop="@+id/linearLayoutBitcoin"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-    <Button
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:text="@string/cancel_button"
-        android:id="@+id/button_cancel"
-        android:layout_below="@+id/button_accept"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/message"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

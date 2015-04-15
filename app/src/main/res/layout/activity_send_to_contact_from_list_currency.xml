@@ -67,89 +67,81 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="48dp"
-        android:gravity="center_vertical"
-        android:background="#ff000de6"
-        android:id="@+id/linearLayoutCurrency"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button"
-        android:layout_above="@+id/linearLayoutBitcoin">
-
-        <TextView
-            android:id="@+id/icon_currency"
-            android:text="@string/currency_type_default"
-            android:contentDescription=""
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:textColor="#FFF"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:layout_margin="8dp" />
-
-        <EditText
-            android:imeOptions="flagNoExtractUi"
-            android:singleLine="true"
-            android:scrollHorizontally="true"
-            android:id="@+id/edit_currency"
-            android:text="@string/zero"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="numberDecimal"
-            android:layout_marginRight="8dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:gravity="center_vertical"
-        android:background="#ff00afcc"
+        android:layout_alignParentLeft="true"
         android:id="@+id/linearLayoutBitcoin"
-        android:layout_above="@+id/note"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button">
-
-        <TextView
-            android:id="@+id/icon_bitcoins"
-            android:text="@string/icon_bitcoin"
-            android:contentDescription=""
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:textColor="#FFF"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:layout_margin="8dp"
-            android:editable="false" />
-
-        <EditText
-            android:imeOptions="flagNoExtractUi"
-            android:singleLine="true"
-            android:scrollHorizontally="true"
-            android:id="@+id/edit_bitcoins"
-            android:text="@string/zero"
-            android:textColor="#FFF"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="numberDecimal"
-            android:layout_marginRight="8dp"
-            android:editable="false" />
-    </LinearLayout>
-
-    <include android:id="@+id/note"
-        layout="@layout/layout_note"
-        android:layout_height="48dp"
-        android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button" />
+        android:layout_toLeftOf="@+id/button">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:background="#ff00afcc">
+
+            <TextView
+                android:id="@+id/icon_bitcoins"
+                android:text="@string/icon_bitcoin"
+                android:contentDescription=""
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:textColor="#FFF"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:layout_margin="8dp" />
+
+            <TextView
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:id="@+id/edit_bitcoins"
+                android:text="@string/zero"
+                android:textColor="#FFF"
+                android:textSize="22sp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:background="#ff000de6"
+            android:id="@+id/linearLayoutCurrency"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:id="@+id/icon_currency"
+                android:text="@string/currency_type_default"
+                android:contentDescription=""
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_margin="8dp" />
+
+            <EditText
+                android:imeOptions="flagNoExtractUi"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:id="@+id/edit_currency"
+                android:text="@string/zero"
+                android:textColor="#FFF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp" />
+        </LinearLayout>
+        <include android:id="@+id/note" layout="@layout/layout_note" />
+    </LinearLayout>
 
     <Button
         android:layout_width="80dp"
@@ -162,6 +154,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/linearLayoutCurrency" />
+        android:layout_alignTop="@+id/linearLayoutBitcoin" />
 
 </RelativeLayout>

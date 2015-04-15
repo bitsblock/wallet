@@ -1,11 +1,9 @@
 package com.bitsblock.wallet.activity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -29,9 +27,13 @@ import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SendToContactFromListActivity extends ActionBarActivity {
+public class SendToContactFromCodeActivity extends ActionBarActivity {
+    private String address;
+    private String message;
+    private String label;
+    private double amount;
 
-    private SendToContactFromListActivity ctx;
+    private SendToContactFromCodeActivity ctx;
     private TextView bitcoinText;
     private TextView currencyText;
 
@@ -46,7 +48,7 @@ public class SendToContactFromListActivity extends ActionBarActivity {
         ctx = this;
 
         if ("Bitcoin".equals(getSharedPreferences(Constant.PREF_CURRENT_USER,MODE_PRIVATE).getString(Constant.TYPE_INPUT,null))) {
-            setContentView(R.layout.activity_send_to_contact_from_list_bitcoin);
+            setContentView(R.layout.activity_send_to_contact_from_code_bitcoin);
             bitcoinText = (EditText) findViewById(R.id.edit_bitcoins);
             currencyText = (TextView) findViewById(R.id.edit_currency);
             bitcoinText.addTextChangedListener(new TextWatcher() {
@@ -89,7 +91,7 @@ public class SendToContactFromListActivity extends ActionBarActivity {
             });
             loadViews();
         } else if ("Currency".equals(getSharedPreferences(Constant.PREF_CURRENT_USER,MODE_PRIVATE).getString(Constant.TYPE_INPUT,null))) {
-            setContentView(R.layout.activity_send_to_contact_from_list_currency);
+            setContentView(R.layout.activity_send_to_contact_from_code_currency);
             currencyText = (EditText) findViewById(R.id.edit_currency);
             bitcoinText = (TextView) findViewById(R.id.edit_bitcoins);
             currencyText.addTextChangedListener(new TextWatcher() {
@@ -117,18 +119,17 @@ public class SendToContactFromListActivity extends ActionBarActivity {
 
     private void loadViews() {
         Bundle extras = getIntent().getExtras();
+        address = extras.getString(Constant.ADDRESS);
+        label = extras.getString(Constant.LABEL);
+        message = extras.getString(Constant.MESSAGE);
+        ((TextView)findViewById(R.id.message)).setText(message + "\n" + address);
+        amount = extras.getDouble(Constant.AMOUNT);
+
         TextView nameOfContactToSend = (TextView) findViewById(R.id.name_contact_to_send);
-        nameOfContactToSend.setText(extras.getString(Constant.NAME));
+        nameOfContactToSend.setText(label.replace('+','\n'));
 
         CircleImageView imageOfContactToSend = (CircleImageView) findViewById(R.id.image_contact_to_send);
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(extras.getString(Constant.IMAGE)));
-            imageOfContactToSend.setImageBitmap(bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            imageOfContactToSend.setImageResource(R.drawable.bender);
-        }
+        imageOfContactToSend.setImageResource(R.drawable.bender);
 
         setTitle("Send to " + nameOfContactToSend.getText());
 
@@ -146,12 +147,20 @@ public class SendToContactFromListActivity extends ActionBarActivity {
 
         TextView mCurrencyType = (TextView) findViewById(R.id.icon_currency);
         mCurrencyType.setText(getSharedPreferences(Constant.PREF_CURRENT_USER, MODE_PRIVATE).getString(Constant.CURRENCY_TYPE, null));
+
+        bitcoinText.setText(Double.toString(amount));
+        try {
+            Double conversion = Interface.convertToCurrencyFromBitcoin(ctx, Double.valueOf(bitcoinText.getText().toString()));
+            currencyText.setText(conversion.toString());
+        } catch (NumberFormatException e) {
+            currencyText.setText("0.0");
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_send_to_contact_from_list, menu);
+        getMenuInflater().inflate(R.menu.menu_send_to_contact_from_code, menu);
         return true;
     }
 
@@ -164,14 +173,7 @@ public class SendToContactFromListActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-            startActivity(intent);
             return true;
-        }
-
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
         }
 
         return super.onOptionsItemSelected(item);
